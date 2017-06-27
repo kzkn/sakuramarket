@@ -2,6 +2,8 @@ class User < ApplicationRecord
 
   attr_accessor :password
 
+  validates :email_address, presence: true, uniqueness: true
+
   before_save :set_salt, :set_hashed_password
 
   def self.authenticate(email_address, password_plain)
