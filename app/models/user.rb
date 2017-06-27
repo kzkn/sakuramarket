@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  has_one :delivery_destination
 
   attr_accessor :password
 

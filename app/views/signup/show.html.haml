@@ -14,5 +14,13 @@
     = form.label "パスワード"
     = form.password_field :password, id: :signup_password
 
+  .field
+    = form.label "送り先名前"
+    = form.text_field :delivery_destination_name, id: :signup_delivery_destination_name
+
+  .field
+    = form.label "送り先住所"
+    = form.text_field :delivery_destination_address, id: :signup_delivery_destination_address
+
   .actions
     = form.submit "登録"
