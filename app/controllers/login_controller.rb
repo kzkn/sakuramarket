@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 class LoginController < ApplicationController
   def show
-    @login = Login.new
+    @login = Form::Login.new
   end
 
   def create
-    @login = Login.new(login_params)
+    @login = Form::Login.new(login_params)
 
     respond_to do |format|
       if user = @login.user
@@ -20,6 +20,6 @@ class LoginController < ApplicationController
 
   private
   def login_params
-    params.require(:login).permit(:account, :password)
+    params.require(:form_login).permit(:account, :password)
   end
 end

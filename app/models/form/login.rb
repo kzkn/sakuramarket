@@ -1,4 +1,4 @@
-class Login
+class Form::Login
   include ActiveModel::Model
 
   attr_accessor :account, :password
