@@ -1,0 +1,13 @@
+%p#notice= notice
+
+= form_with(model: @login, url: { action: "create" }, local: true) do |form|
+  .field
+    = form.label "メールアドレス"
+    = form.text_field :account, id: :login_account
+
+  .field
+    = form.label "パスワード"
+    = form.password_field :password, id: :login_password
+
+  .actions
+    = form.submit "ログイン"
