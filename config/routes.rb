@@ -3,4 +3,5 @@ Rails.application.routes.draw do
 
   get "/login", to: "login#show"
   post "/login", to: "login#create"
+  post "/logout", to: "logout#create"
 end
