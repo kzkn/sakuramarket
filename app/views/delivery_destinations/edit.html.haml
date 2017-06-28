@@ -1,6 +1,6 @@
 %p#notice= notice
 
-= form_with(model: @delivery, url: delivery_path, local: true) do |form|
+= form_with(model: @delivery, url: delivery_path, local: true, method: :post) do |form|
   - if @delivery.errors.any?
     #error_explanation
       %h2 入力内容にエラーがあります

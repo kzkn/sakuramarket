@@ -14,5 +14,9 @@
     = form.label "パスワード"
     = form.password_field :password, id: :signup_password
 
+  .field
+    = form.label "パスワード (確認)"
+    = form.password_field :password_confirmation, id: :signup_password_confirmation
+
   .actions
     = form.submit "登録"
