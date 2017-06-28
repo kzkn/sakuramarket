@@ -31,4 +31,8 @@ class User < ApplicationRecord
   def self.generate_salt
     SecureRandom.hex(16)
   end
+
+  def get_or_new_delivery_destination
+    self.delivery_destination || build_delivery_destination
+  end
 end

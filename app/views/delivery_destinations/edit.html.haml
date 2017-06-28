@@ -1,0 +1,20 @@
+%p#notice= notice
+
+= form_with(model: @delivery, url: delivery_path, local: true) do |form|
+  - if @delivery.errors.any?
+    #error_explanation
+      %h2 入力内容にエラーがあります
+      %ul
+        - @delivery.errors.full_messages.each do |message|
+          %li= message
+
+  .field
+    = form.label "送り先名前"
+    = form.text_field :name, id: :delivery_name
+
+  .field
+    = form.label "送り先住所"
+    = form.text_field :address, id: :delivery_address
+
+  .actions
+    = form.submit "登録"

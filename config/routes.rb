@@ -6,4 +6,7 @@ Rails.application.routes.draw do
   post "/logout", to: "logout#create"
   get "/signup", to: "signup#show"
   post "/signup", to: "signup#create"
+
+  get "/delivery", to: "delivery_destinations#edit", as: "delivery"
+  post "/delivery", to: "delivery_destinations#update"
 end

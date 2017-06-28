@@ -33,4 +33,5 @@ ActiveRecord::Schema.define(version: 20170627214434) do
     t.index ["email_address"], name: "index_users_on_email_address", unique: true
   end
 
+  add_foreign_key "delivery_destinations", "users"
 end
