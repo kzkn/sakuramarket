@@ -1,0 +1,31 @@
+%h1 商品一覧
+
+%table
+  %thead
+    %tr
+      %th 商品名
+      %th 価格
+      %th 説明
+      %th 非表示
+      %th
+      %th
+      %th
+      %th
+      %th
+
+  %tbody
+    - @products.each do |product|
+      %tr
+        %td= product.name
+        %td= product.price
+        %td= product.description
+        %td= checkmark(product.hidden).html_safe
+        %td= link_to '↑', up_product_path(product), method: :post
+        %td= link_to '↓', down_product_path(product), method: :post
+        %td= link_to 'Show', product
+        %td= link_to 'Edit', edit_product_path(product)
+        %td= link_to 'Destroy', product, method: :delete, data: { confirm: '削除しますか？' }
+
+%br
+
+= link_to '新規登録', new_product_path

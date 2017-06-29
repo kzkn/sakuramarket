@@ -1,0 +1,22 @@
+%p#notice= notice
+
+%p
+  %b 商品名:
+  = @product.name
+%p
+  %b 商品画像:
+  = product_image_tag(@product, 120)
+%p
+  %b 商品価格:
+  = @product.price
+%p
+  %b 商品説明:
+  = @product.description
+%p
+  %b 非表示:
+  = checkmark(@product.hidden).html_safe
+
+= link_to 'Edit', edit_product_path(@product)
+\|
+
+= link_to 'Back', products_path
