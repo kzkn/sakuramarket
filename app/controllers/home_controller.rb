@@ -1,6 +1,5 @@
 class HomeController < ApplicationController
-  before_action :authenticate!
-
   def index
+    @products = Product.for_display
   end
 end

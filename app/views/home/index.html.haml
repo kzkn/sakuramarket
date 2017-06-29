@@ -1,7 +1,5 @@
-%p#notice= notice
-%h2
-  Hello
-  = current_user.email_address
-%p
-  The time is now:
-  = Time.now
+- @products.each_slice(3) do |p1, p2, p3|
+  .row
+    = product_display p1
+    = product_display p2
+    = product_display p3
