@@ -5,6 +5,7 @@ class Product < ApplicationRecord
   scope :for_display, ->{
     select(:id, :name).where(hidden: false)
   }
+  scope :visible, ->{ where(hidden: false) }
 
   attr_accessor :image_file
 
