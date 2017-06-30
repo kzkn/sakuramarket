@@ -1,13 +1,8 @@
+# -*- coding: utf-8 -*-
 Rails.application.routes.draw do
-  resources :products do
-    member do
-      get 'image'
-      post 'up'
-      post 'down'
-    end
-  end
   root 'home#index'
 
+  # TODO この辺はあとで整理する
   get '/login', to: 'login#show'
   post '/login', to: 'login#create'
   post '/logout', to: 'logout#create'
@@ -16,4 +11,19 @@ Rails.application.routes.draw do
 
   get '/delivery', to: 'delivery_destinations#edit', as: 'delivery'
   post '/delivery', to: 'delivery_destinations#update'
+
+  resources :products, only: [:show] do
+    member do
+      get 'image'
+    end
+  end
+
+  namespace :admin do
+    resources :products do
+      member do
+        post 'up'
+        post 'down'
+      end
+    end
+  end
 end

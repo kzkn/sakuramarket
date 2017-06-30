@@ -1,0 +1,7 @@
+%h1 商品編集
+
+= render 'form', url: admin_product_path(@product)
+
+= link_to 'Show', admin_product_path(@product)
+\|
+= link_to 'Back', admin_products_path
