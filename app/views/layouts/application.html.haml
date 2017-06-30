@@ -1,13 +1,22 @@
 !!!
 %html
   %head
-    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
-    %title Sakuramarket
+    %meta{ charset: 'utf-8' }
+    %title さくらマーケット
     = csrf_meta_tags
-    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
   %body
-    %header
-      - if user_signed_in?
-        = link_to "ログアウト", logout_path, method: :post
-    = yield
+    %header.pagehead
+      %nav
+        %span.pagehead__title
+          = link_to 'さくらマーケット', root_path
+        %ul.pagehead__nav
+          %li 日記を見る
+          %li お買い物
+          %li ショッピングカート
+        %ul.pagehead__nav.pagehead__nav--right
+          - if user_signed_in? or true
+            %li= link_to 'ログアウト', logout_path, method: :post
+    .container
+      = yield
