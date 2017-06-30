@@ -31,6 +31,10 @@ a:active {
     padding: 40px 30px;
 }
 
+.btn {
+    border-radius: 0;
+}
+
 .pagehead {
     width: 100%;
     padding: 40px;
@@ -73,5 +77,47 @@ a:active {
         height: 200px;
         width: 100%;
         margin-bottom: 8px;
+
+        &--size-big {
+            height: 300px;
+        }
+    }
+
+    &__name {
+        margin: 0;
+        padding: 8px 16px 8px;
+        border-bottom: 1px solid #ddd;
+        font-size: 32px;
+    }
+
+    &__price {
+        padding: 8px 16px;
+        font-size: 18px;
+    }
+
+    &__price {
+        padding: 8px 16px 8px;
+
+        &_value {
+            color: #b12704;
+        }
+    }
+
+    &__description {
+        padding: 8px 16px;
+        font-size: 18px;
+    }
+}
+
+.btn_cart {
+    font-weight: bold;
+}
+
+.quantity_form {
+    label {
+        font-weight: normal;
+    }
+    input {
+        border-radius: 0;
     }
 }
