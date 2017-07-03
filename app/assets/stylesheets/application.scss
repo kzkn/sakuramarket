@@ -37,7 +37,7 @@ a:active {
 
 .pagehead {
     width: 100%;
-    padding: 40px;
+    padding: 0 40px;
     background-color: #7ac843;
     color: #fff;
 
@@ -52,6 +52,9 @@ a:active {
 
     &__nav {
         display: inline-block;
+        margin: 0;
+        height: 100px;
+        line-height: 100px;
         list-style: none;
         font-size: 20px;
 
@@ -60,7 +63,6 @@ a:active {
             margin-left: 80px;
         }
 
-        /* TODO 縦方向にちょっとずれてる */
         &--right {
             float: right;
         }
