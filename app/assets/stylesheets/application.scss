@@ -1,15 +1,4 @@
 /*
- * This is a manifest file that'll be compiled into application.css, which will include all the files
- * listed below.
- *
- * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
- * vendor/assets/stylesheets directory can be referenced here using a relative path.
- *
- * You're free to add application-wide styles to this file and they'll appear at the bottom of the
- * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
- * files in this directory. Styles in this file should be added after the last require_* statement.
- * It is generally better to create a new file per style scope.
- *
  *= require_tree .
  *= require_self
  */
@@ -29,6 +18,7 @@ a:active {
 
 .container {
     padding: 40px 30px;
+    max-width: 960px;
 }
 
 .btn {
@@ -83,6 +73,9 @@ a:active {
         &--size-big {
             height: 300px;
         }
+        &--shadow {
+            box-shadow: 6px 6px 6px rgba(0,0,0,0.4);
+        }
     }
 
     &__name {
@@ -93,12 +86,12 @@ a:active {
     }
 
     &__price {
-        padding: 8px 16px;
+        padding: 8px 16px 0;
         font-size: 18px;
     }
 
     &__price {
-        padding: 8px 16px 8px;
+        padding: 8px 16px 0;
 
         &_value {
             color: #b12704;
@@ -106,7 +99,7 @@ a:active {
     }
 
     &__description {
-        padding: 8px 16px;
+        padding: 0 16px;
         font-size: 18px;
     }
 }
