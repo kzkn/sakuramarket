@@ -1,10 +1,16 @@
 # -*- coding: utf-8 -*-
 class CartItemsController < ApplicationController
   before_action :set_cart, :set_product, only: [:create]
+  before_action :set_cart_item, only: [:destroy]
 
   def create
     @cart.add_item!(@product, cart_item_params[:quantity].to_i)
-    redirect_to cart_path, notice: "カートに追加しました。"
+    redirect_to cart_path, notice: '商品をカートに追加しました。'
+  end
+
+  def destroy
+    @cart_item.destroy!
+    redirect_to cart_path, notice: '商品をカートから削除しました。'
   end
 
   private
@@ -14,6 +20,10 @@ class CartItemsController < ApplicationController
 
   def set_product
     @product = Product.find(cart_item_params[:product_id])
+  end
+
+  def set_cart_item
+    @cart_item = CartItem.find(params[:id])
   end
 
   def cart_item_params

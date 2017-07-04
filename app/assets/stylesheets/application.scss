@@ -25,6 +25,12 @@ a:active {
     border-radius: 0;
 }
 
+.text {
+    &--small {
+        font-size: 0.8em;
+    }
+}
+
 .pagehead {
     width: 100%;
     padding: 0 40px;
@@ -73,6 +79,10 @@ a:active {
         &--size-big {
             height: 300px;
         }
+        &--fixed-width {
+            width: 100px;
+            height: unset;
+        }
         &--shadow {
             box-shadow: 6px 6px 6px rgba(0,0,0,0.4);
         }
@@ -114,5 +124,11 @@ a:active {
     }
     input {
         border-radius: 0;
+    }
+}
+
+.cartitems {
+    td, th {
+        font-size: 18px;
     }
 }

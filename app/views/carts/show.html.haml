@@ -1,14 +1,28 @@
-%table.table
-  %thead
-    %tr
-      %th{ width: "1%" }
-      %th
-      %th{ width: "10%" } 価格
-      %th{ width: "10%" } 数量
-  %tbody
-    - @cart.items.each do |item|
-      %tr
-        %td= product_image_tag item.product, 100
-        %td= item.product.name
-        %td= item.product.price
-        %td= item.quantity
+.row
+  .col-xs-12
+    %table.table.cartitems
+      %thead
+        %tr
+          %th{ width: "15%" }
+          %th
+          %th{ width: "10%" } 価格
+          %th{ width: "10%" } 数量
+      %tbody
+        - @cart.items.each do |item|
+          %tr
+            %td= link_to image_tag(image_product_path(item.product), class: 'product__image product__image--fixed-width product__image--shadow'), product_path(item.product)
+            %td
+              %p= link_to item.product.name, product_path(item.product)
+              %p= link_to '削除', cart_item_path(item), method: :delete, data: { confirm: 'カートから削除します。よろしいですか？' }, class: 'text--small'
+            %td= item.product.price
+            %td= item.quantity
+      %tfoot
+        %tr
+          %td{ colspan: 4, style: 'text-align: right' }
+            %p.product__price
+              %span 小計:
+              %span.product__price_value
+                %strong= "￥#{@cart.price_subtotal}"
+.row
+  .col-xs-offset-4.col-xs-4
+    = link_to 'レジに進む', '#', class: 'btn btn-block btn-warning'

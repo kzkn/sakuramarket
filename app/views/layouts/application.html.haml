@@ -19,4 +19,6 @@
           - if user_signed_in? or true
             %li= link_to 'ログアウト', logout_path, method: :post
     .container
+      - if notice
+        .alert.alert-info= notice
       = yield

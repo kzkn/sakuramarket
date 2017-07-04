@@ -8,9 +8,13 @@ class Cart < ApplicationRecord
     cart_item = items.where(product_id: product.id).first
     if cart_item
       cart_item.increment!(:quantity, quantity)
-      self.touch!
+      self.touch
     else
       items.create!(product: product, quantity: quantity, price: product.price)
     end
+  end
+
+  def price_subtotal
+    items.map{|item| item.quantity * item.price }.sum
   end
 end
