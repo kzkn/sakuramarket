@@ -15,12 +15,18 @@ class ApplicationController < ActionController::Base
     @current_user ||= User.find_by(id: session[:user_id])
   end
 
-  def set_cart(cart)
+  def set_current_cart(cart)
     session[:cart_id] = cart.id
-    current_user.try(:cart=, @cart)
+    current_user.try(:cart=, cart)
   end
 
   def current_cart
     @current_cart ||= Cart.find_by(id: session[:cart_id])
+  end
+
+  def current_cart_ensured
+    cart = current_cart || Cart.create
+    set_current_cart(cart)
+    cart
   end
 end

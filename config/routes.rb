@@ -2,7 +2,7 @@
 Rails.application.routes.draw do
   root 'home#index'
 
-  # TODO この辺はあとで整理する
+  # TODO 全体的にもう少しスッキリできそう
   get '/login', to: 'login#show'
   post '/login', to: 'login#create'
   post '/logout', to: 'logout#create'
@@ -18,7 +18,11 @@ Rails.application.routes.draw do
     end
   end
 
-  resource :cart, only: [:show]
+  resource :cart, only: [:show] do
+    member do
+      resources :items, as: 'cart_item', controller: 'cart_items', only: [:create, :update, :destroy]
+    end
+  end
 
   namespace :admin do
     resources :products do

@@ -1,13 +1,12 @@
 # -*- coding: utf-8 -*-
 class CartsController < ApplicationController
-  before_action :set_or_create_cart, only: [:show]
+  before_action :set_cart, only: [:show]
 
   def show
   end
 
   private
-  def set_or_create_cart
-    @cart = current_cart || Cart.create
-    set_cart(@cart)
+  def set_cart
+    @cart = current_cart_ensured
   end
 end
