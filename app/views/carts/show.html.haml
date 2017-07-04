@@ -1,4 +1,14 @@
-- @cart.items.each do |item|
-  .row
-    .col-xs-12
-      = product_display item.product
+%table.table
+  %thead
+    %tr
+      %th{ width: "1%" }
+      %th
+      %th{ width: "10%" } 価格
+      %th{ width: "10%" } 数量
+  %tbody
+    - @cart.items.each do |item|
+      %tr
+        %td= product_image_tag item.product, 100
+        %td= item.product.name
+        %td= item.product.price
+        %td= item.quantity
