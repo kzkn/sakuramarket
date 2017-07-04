@@ -14,7 +14,7 @@
         %ul.pagehead__nav
           %li 日記を見る
           %li お買い物
-          %li ショッピングカート
+          %li= link_to 'ショッピングカート', cart_path
         %ul.pagehead__nav.pagehead__nav--right
           - if user_signed_in? or true
             %li= link_to 'ログアウト', logout_path, method: :post

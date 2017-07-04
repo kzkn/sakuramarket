@@ -17,6 +17,7 @@ class ApplicationController < ActionController::Base
 
   def set_cart(cart)
     session[:cart_id] = cart.id
+    current_user.try(:cart=, @cart)
   end
 
   def current_cart

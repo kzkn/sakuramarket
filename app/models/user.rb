@@ -8,9 +8,4 @@ class User < ApplicationRecord
   def get_or_new_delivery_destination
     self.delivery_destination || build_delivery_destination
   end
-
-  def set_cart(cart)
-    self.cart = cart
-    self.save!
-  end
 end
