@@ -1,9 +1,4 @@
-%p#notice= notice
-
-%p
-  %b User:
-  = @cart.user
-
-= link_to 'Edit', edit_cart_path(@cart)
-\|
-= link_to 'Back', carts_path
+- @cart.items.each do |item|
+  .row
+    .col-xs-12
+      = product_display item.product

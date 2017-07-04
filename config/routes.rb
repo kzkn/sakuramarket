@@ -18,7 +18,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :carts, only: [:show]
+  resource :cart, only: [:show]
 
   namespace :admin do
     resources :products do
