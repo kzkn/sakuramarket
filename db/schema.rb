@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170704131406) do
+ActiveRecord::Schema.define(version: 20170705142221) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,15 +32,6 @@ ActiveRecord::Schema.define(version: 20170704131406) do
     t.integer "lock_version", default: 0, null: false
   end
 
-  create_table "delivery_destinations", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.string "name", null: false
-    t.string "address", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_delivery_destinations_on_user_id"
-  end
-
   create_table "products", force: :cascade do |t|
     t.string "name", null: false
     t.binary "image", null: false
@@ -57,11 +48,12 @@ ActiveRecord::Schema.define(version: 20170704131406) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "password_digest"
+    t.string "delivery_destination_name", default: "", null: false
+    t.string "delivery_destination_address", default: "", null: false
     t.index ["email_address"], name: "index_users_on_email_address", unique: true
   end
 
   add_foreign_key "cart_items", "carts", on_delete: :cascade
   add_foreign_key "cart_items", "products"
   add_foreign_key "carts", "users", on_delete: :cascade
-  add_foreign_key "delivery_destinations", "users", on_delete: :cascade
 end

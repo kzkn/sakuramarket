@@ -9,9 +9,6 @@ Rails.application.routes.draw do
   get '/signup', to: 'signup#show'
   post '/signup', to: 'signup#create'
 
-  get '/delivery', to: 'delivery_destinations#edit', as: 'delivery'
-  post '/delivery', to: 'delivery_destinations#update'
-
   resources :products, only: [:show] do
     member do
       get 'image'
