@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-class CartItemsController < ApplicationController
+class Cart::ItemsController < ApplicationController
   before_action :set_cart, :set_product, only: [:create]
   before_action :set_cart_item, only: [:destroy]
 
   def create
-    @cart.add_item!(@product, cart_item_params[:quantity].to_i)
+    @cart.add_item!(@product, cart_item_params[:quantity])
     redirect_to cart_path, notice: '商品をカートに追加しました。'
   end
 

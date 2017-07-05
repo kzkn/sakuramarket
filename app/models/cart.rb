@@ -5,12 +5,13 @@ class Cart < ApplicationRecord
 
   def add_item!(product, quantity)
     # TODO 楽観的ロックの競合で失敗したらもう一回
-    cart_item = items.where(product_id: product.id).first
-    if cart_item
-      cart_item.increment!(:quantity, quantity)
-      self.touch
+    item = items.find_or_initialize_by(product: product)
+    if item.new_record?
+      item.quantity = quantity
+      item.save!
     else
-      items.create!(product: product, quantity: quantity, price: product.price)
+      item.increment!(:quantity, quantity.to_i)
+      self.touch
     end
   end
 

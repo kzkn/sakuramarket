@@ -14,7 +14,7 @@
         %p.product__description= @product.description
     .row{ style: 'margin-top: 30px' }
       .col-xs-12
-        = form_with model: @cart_item, url: cart_item_index_path, local: true do |f|
+        = form_with model: @cart_item, url: cart_items_path, local: true do |f|
           = f.hidden_field :product_id
           .form-group.form-inline.quantity_form
             %label{ for: 'quantity' } 数量:

@@ -19,9 +19,7 @@ Rails.application.routes.draw do
   end
 
   resource :cart, only: [:show] do
-    member do
-      resources :items, as: 'cart_item', controller: 'cart_items', only: [:create, :update, :destroy]
-    end
+    resources :items, only: [:create, :update, :destroy], module: 'cart'
   end
 
   namespace :admin do
