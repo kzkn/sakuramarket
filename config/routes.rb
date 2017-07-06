@@ -2,24 +2,28 @@
 Rails.application.routes.draw do
   root 'home#index'
 
-  # TODO 全体的にもう少しスッキリできそう
-  get '/login', to: 'login#show'
-  post '/login', to: 'login#create'
-  post '/logout', to: 'logout#create'
-  get '/signup', to: 'signup#show'
-  post '/signup', to: 'signup#create'
+  get '/login', to: 'sessions#new'
+  post '/login', to: 'sessions#create'
+  delete '/logout', to: 'sessions#destroy'
 
-  resources :products, only: [:show] do
-    member do
-      get 'image'
-    end
+  resource :signup, only: [:show, :create]
+
+  resources :details, only: [:show]
+
+  namespace :products do
+    resource :image, only: [:show]
   end
 
-  resource :cart, only: [:show] do
-    resources :items, only: [:create, :update, :destroy], module: 'cart'
+  resource :cart, only: [:show, :update] do
+    resources :items, only: [:destroy], module: :carts
+  end
+
+  resource :order, only: [:show, :create] do
+    resources :histories, only: [:index, :show]
   end
 
   namespace :admin do
+    resources :users, only: [:index, :show, :edit, :update, :destroy]
     resources :products do
       member do
         post 'up'
