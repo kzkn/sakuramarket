@@ -10,8 +10,8 @@ Rails.application.routes.draw do
 
   resources :details, only: [:show]
 
-  namespace :products do
-    resource :image, only: [:show]
+  resources :products, only: [] do
+    resource :image, only: [:show], module: :products
   end
 
   resource :cart, only: [:show, :update] do
