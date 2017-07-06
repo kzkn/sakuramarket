@@ -1,23 +1,14 @@
 # -*- coding: utf-8 -*-
-class Form::Signup
+class SignupForm
   include ActiveModel::Model
 
-  attr_accessor :email_address, :password, :password_confirmation
+  attr_accessor :email, :password, :password_confirmation
 
-  # TODO validation
-  validates :email_address, presence: true
+  validates :email, presence: true
   validates :password, presence: true
   validates :password_confirmation, presence: true
 
-  def register
-    return false unless valid?
-    save_user
-  end
-
-  private
-  def save_user
-    user = User.new(email_address: email_address, password: password,
-      password_confirmation: password_confirmation)
-    user.save && user
+  def create_user
+    valid? && User.create(email: email, password: password, password_confirmation: password_confirmation)
   end
 end

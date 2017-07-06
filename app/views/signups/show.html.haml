@@ -1,0 +1,22 @@
+= form_with(model: @form, url: signup_path, local: true) do |f|
+  - if @form.errors.any?
+    #error_explanation
+      %h2 入力内容にエラーがあります
+      %ul
+        - @form.errors.full_messages.each do |message|
+          %li= message
+
+  .field
+    = f.label "メールアドレス"
+    = f.text_field :email
+
+  .field
+    = f.label "パスワード"
+    = f.password_field :password
+
+  .field
+    = f.label "パスワード (確認)"
+    = f.password_field :password_confirmation
+
+  .actions
+    = f.submit "登録"
