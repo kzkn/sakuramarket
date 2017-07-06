@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170705142221) do
+ActiveRecord::Schema.define(version: 20170706135757) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,6 +20,8 @@ ActiveRecord::Schema.define(version: 20170705142221) do
     t.bigint "product_id", null: false
     t.integer "quantity", null: false
     t.integer "price", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.index ["cart_id", "product_id"], name: "index_cart_items_on_cart_id_and_product_id", unique: true
     t.index ["cart_id"], name: "index_cart_items_on_cart_id"
     t.index ["product_id"], name: "index_cart_items_on_product_id"
@@ -30,6 +32,7 @@ ActiveRecord::Schema.define(version: 20170705142221) do
     t.datetime "updated_at", null: false
     t.integer "user_id"
     t.integer "lock_version", default: 0, null: false
+    t.index ["user_id"], name: "index_carts_on_user_id", unique: true
   end
 
   create_table "products", force: :cascade do |t|
@@ -48,8 +51,8 @@ ActiveRecord::Schema.define(version: 20170705142221) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "password_digest"
-    t.string "delivery_destination_name", default: "", null: false
-    t.string "delivery_destination_address", default: "", null: false
+    t.string "ship_to_name", default: "", null: false
+    t.string "ship_to_address", default: "", null: false
     t.index ["email_address"], name: "index_users_on_email_address", unique: true
   end
 
