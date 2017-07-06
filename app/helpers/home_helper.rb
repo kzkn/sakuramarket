@@ -3,7 +3,7 @@ module HomeHelper
     return nil unless product
 
     content_tag(:div, class: "col-xs-4") do
-      content_tag(:a, href: product_path(product), class: "thumbnail product") do
+      content_tag(:a, href: detail_path(product), class: "thumbnail product") do
         img = image_tag(product_image_path(product), alt: product.name, class: "product__image")
         name = content_tag(:span, product.name)
         img + name

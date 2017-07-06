@@ -1,12 +1,8 @@
-class ProductsController < ApplicationController
-  before_action :set_product, only: [:show, :image]
+class DetailsController < ApplicationController
+  before_action :set_product, only: [:show]
 
   def show
     @cart_item = CartItem.new(product: @product, quantity: 1)
-  end
-
-  def image
-    send_data(@product.image)
   end
 
   private
