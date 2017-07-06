@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  include SessionsHelper
+
   protect_from_forgery with: :exception
 
   def authenticate!
@@ -7,12 +9,13 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def authenticated(user)
-    session[:user_id] = user.try(:id)
+  def log_in(user)
+    session[:user_id] = user.id
   end
 
-  def current_user
-    @current_user ||= User.find_by(id: session[:user_id])
+  def log_out
+    session.delete(:user_id)
+    @current_user = nil
   end
 
   def set_current_cart(cart)

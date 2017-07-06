@@ -16,8 +16,10 @@
           %li お買い物
           %li= link_to 'ショッピングカート', cart_path
         %ul.pagehead__nav.pagehead__nav--right
-          - if user_signed_in? or true
-            %li= link_to 'ログアウト', logout_path, method: :post
+          - if current_user
+            %li= link_to 'ログアウト', logout_path, method: :delete
+          - else
+            %li= link_to 'ログイン', login_path
     .container
       - if notice
         .alert.alert-info= notice
