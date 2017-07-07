@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class ApplicationController < ActionController::Base
   include SessionsHelper
 
@@ -5,6 +6,7 @@ class ApplicationController < ActionController::Base
 
   def authenticate!
     unless current_user
+      session[:after_login_path] = request.path
       redirect_to login_path
     end
   end

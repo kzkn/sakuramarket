@@ -8,7 +8,8 @@ class SessionsController < ApplicationController
     @form = LoginForm.new(login_form_params)
     if user = @form.authenticate
       log_in user
-      redirect_to root_path, notice: 'ログインしました。'
+      path = session.delete(:after_login_path) || root_path
+      redirect_to path, notice: 'ログインしました。'
     else
       @failure = true
       render :new
