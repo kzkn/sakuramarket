@@ -1,6 +1,6 @@
-%h1 商品一覧
+%h2 商品一覧
 
-%table
+%table.table
   %thead
     %tr
       %th 商品名
@@ -22,10 +22,12 @@
         %td= checkmark(product.hidden).html_safe
         %td= link_to '↑', up_admin_product_path(product), method: :post
         %td= link_to '↓', down_admin_product_path(product), method: :post
-        %td= link_to 'Show', admin_product_path(product)
-        %td= link_to 'Edit', edit_admin_product_path(product)
-        %td= link_to 'Destroy', admin_product_path(product), method: :delete, data: { confirm: '削除しますか？' }
+        %td= link_to '詳細', admin_product_path(product)
+        %td= link_to '編集', edit_admin_product_path(product)
+        %td= link_to '削除', admin_product_path(product), method: :delete, data: { confirm: '削除しますか？' }
 
 %br
 
 = link_to '新規登録', new_admin_product_path
+\|
+= link_to '戻る', admin_path

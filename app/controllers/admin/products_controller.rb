@@ -2,7 +2,7 @@ class Admin::ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :up, :down, :destroy]
 
   def index
-    @products = Product.all
+    @products = Product.without_image
   end
 
   def show
@@ -20,9 +20,8 @@ class Admin::ProductsController < ApplicationController
 
     respond_to do |format|
       if @product.save
-        path = admin_product_path(@product)
-        format.html { redirect_to path, notice: 'Product was successfully created.' }
-        format.json { render :show, status: :created, location: path }
+        format.html { redirect_to admin_product_path(@product), notice: 'Product was successfully created.' }
+        format.json { render :show, status: :created, location: admin_product_path(@product) }
       else
         format.html { render :new }
         format.json { render json: @product.errors, status: :unprocessable_entity }
@@ -33,9 +32,8 @@ class Admin::ProductsController < ApplicationController
   def update
     respond_to do |format|
       if @product.update(product_params)
-        path = admin_product_path(@product)
-        format.html { redirect_to path, notice: 'Product was successfully updated.' }
-        format.json { render :show, status: :ok, location: path }
+        format.html { redirect_to admin_product_path(@product), notice: 'Product was successfully updated.' }
+        format.json { render :show, status: :ok, location: admin_product_path(@product) }
       else
         format.html { render :edit }
         format.json { render json: @product.errors, status: :unprocessable_entity }
@@ -63,10 +61,10 @@ class Admin::ProductsController < ApplicationController
 
   private
     def set_product
-      @product = Product.find(params[:id])
+      @product = Product.without_image.find(params[:id])
     end
 
     def product_params
-      params.require(:product).permit(:name, :image_file, :price, :description, :hidden)
+      params.require(:product).permit(:name, :image_file, :price, :description, :hidden, :position)
     end
 end

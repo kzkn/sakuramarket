@@ -7,6 +7,6 @@ class Products::ImagesController < ApplicationController
 
   private
   def set_product
-    @product = Product.visible.find(params[:product_id])
+    @product = Product.find(params[:product_id])
   end
 end
