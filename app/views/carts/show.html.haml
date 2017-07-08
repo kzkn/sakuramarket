@@ -14,15 +14,13 @@
             %td
               %p= link_to item.product.name, detail_path(item.product)
               %p= link_to '削除', cart_item_path(item), method: :delete, data: { confirm: 'カートから削除します。よろしいですか？' }, class: 'text--small'
-            %td= item.product.price
+            %td= yen(item.product.price)
             %td= item.quantity
       %tfoot
         %tr
-          %td{ colspan: 4, style: 'text-align: right' }
-            %p.product__price
-              %span 小計:
-              %span.product__price_value
-                %strong= "￥#{@cart.price_subtotal}"
-.row
-  .col-xs-offset-4.col-xs-4
-    = link_to 'レジに進む', '#', class: 'btn btn-block btn-warning'
+          %td{ colspan: 4, style: 'text-align: right' }= labeled_price('小計:', @cart.subtotal)
+
+- if @cart.has_items?
+  .row
+    .col-xs-offset-4.col-xs-4
+      = link_to 'レジに進む', new_order_path, class: 'btn btn-block btn-warning'

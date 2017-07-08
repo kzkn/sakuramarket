@@ -30,7 +30,22 @@ class Cart < ApplicationRecord
     self
   end
 
-  def price_subtotal
-    items.map{|item| item.quantity * item.price }.sum
+  def subtotal
+    items.map(&:subtotal).sum
+  end
+
+  def total_quantity
+    items.map(&:quantity).sum
+  end
+
+  def has_items?
+    total_quantity > 0
+  end
+
+  private
+  def add_items_to_order(order)
+    items.each do |item|
+      order.items << item.order
+    end
   end
 end

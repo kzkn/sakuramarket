@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  cod_fee: 1
+  ship_fee: 1
+  ship_date: 2017-07-08
+  tax_rate: 1.5
+
+two:
+  user: two
+  cod_fee: 1
+  ship_fee: 1
+  ship_date: 2017-07-08
+  tax_rate: 1.5

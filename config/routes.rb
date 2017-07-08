@@ -19,8 +19,8 @@ Rails.application.routes.draw do
     resources :items, only: [:destroy], module: :carts
   end
 
-  resource :order, only: [:show, :create] do
-    resources :histories, only: [:index, :show]
+  resource :order, only: [:new, :create] do
+    resources :histories, only: [:index, :show], module: :orders
   end
 
   resource :admin, only: [:show]
