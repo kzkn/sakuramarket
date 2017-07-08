@@ -9,11 +9,10 @@
   %body
     %header.pagehead
       %nav
-        %span.pagehead__title
-          = link_to 'さくらマーケット', root_path
+        %span.pagehead__title さくらマーケット
         %ul.pagehead__nav
           %li 日記を見る
-          %li お買い物
+          %li= link_to 'お買い物', root_path
           %li= link_to 'ショッピングカート', cart_path
         %ul.pagehead__nav.pagehead__nav--right
           - if current_user
