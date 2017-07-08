@@ -1,0 +1,25 @@
+%h2 ユーザー一覧
+
+%table.table
+  %thead
+    %tr
+      %th メールアドレス
+      %th 送り先名前
+      %th 送り先住所
+      %th
+      %th
+      %th
+
+  %tbody
+    - @users.each do |user|
+      %tr
+        %td= user.email
+        %td= user.ship_to_name
+        %td= user.ship_to_address
+        %td= link_to '詳細', admin_user_path(user)
+        %td= link_to '編集', edit_admin_user_path(user)
+        %td= link_to '削除', admin_user_path(user), method: :delete, data: { confirm: '削除しますか？' }
+
+%br
+
+= link_to '戻る', admin_path

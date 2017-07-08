@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 Rails.application.routes.draw do
+  resources :users
   root 'home#index'
 
   get '/login', to: 'sessions#new'
