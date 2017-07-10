@@ -40,7 +40,7 @@ class Cart < ApplicationRecord
   end
 
   def has_items?
-    total_quantity > 0
+    items.any?{ |item| item.quantity > 0 }
   end
 
   private
