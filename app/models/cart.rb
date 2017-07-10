@@ -10,13 +10,15 @@ class Cart < ApplicationRecord
   def add(product, quantity)
     return if quantity <= 0
 
-    item = items.find_or_initialize_by(product: product)
-    if item.new_record?
-      item.quantity = quantity
-      item.save!
-    else
-      item.increment!(:quantity, quantity.to_i)
-      self.touch
+    transaction do
+      item = items.find_or_initialize_by(product: product)
+      if item.new_record?
+        item.quantity = quantity
+        item.save!
+      else
+        item.increment!(:quantity, quantity.to_i)
+        self.touch
+      end
     end
   end
 
