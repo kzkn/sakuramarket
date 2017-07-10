@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 Rails.application.routes.draw do
-  resources :users
   root 'home#index'
 
   get '/login', to: 'sessions#new'
@@ -19,8 +18,9 @@ Rails.application.routes.draw do
     resources :items, only: [:destroy], module: :carts
   end
 
-  resource :order, only: [:new, :create] do
-    resources :histories, only: [:index, :show], module: :orders
+  resource :orders, only: [:new, :create]
+  namespace :orders do
+    resources :histories, only: [:index, :show]
   end
 
   resource :admin, only: [:show]

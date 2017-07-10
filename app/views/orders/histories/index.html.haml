@@ -1,0 +1,18 @@
+.row
+  .col-xs-12
+    %table.table
+      %thead
+        %tr
+          %th #
+          %th{ width: '50%' } 注文日時
+          %th 配送日
+          %th 配送時間帯
+          %th 合計額
+      %tbody
+        - @orders.each_with_index do |order, i|
+          %tr
+            %td= i + 1
+            %td= link_to(order.created_at, orders_history_path(order))
+            %td= order.ship_date
+            %td= order.ship_period
+            %td= yen(order.total)
