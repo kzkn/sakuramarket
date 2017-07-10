@@ -53,7 +53,7 @@ class ApplicationController < ActionController::Base
 
   def ensure_cart_created
     unless current_cart.try(:owner?, current_user)
-      cart = current_user.try(:create_cart) || Cart.create
+      cart = current_user.try(:cart) || current_user.try(:create_cart) || Cart.create
       set_current_cart(cart)
     end
     current_cart
