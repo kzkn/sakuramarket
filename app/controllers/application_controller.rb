@@ -13,10 +13,12 @@ class ApplicationController < ActionController::Base
 
   def log_in(user)
     session[:user_id] = user.id
-    if user.cart
-      set_current_cart(user.cart.merge(current_cart))
-    elsif current_cart
-      current_cart.update!(user: user)
+    if current_cart
+      if user.cart
+        set_current_cart(current_cart.move_items_to(user.cart))
+      else
+        current_cart.update!(user: user)
+      end
     end
   end
 

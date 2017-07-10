@@ -20,14 +20,13 @@ class Cart < ApplicationRecord
     end
   end
 
-  def merge(other)
-    if other
-      transaction do
-        other.items.each { |item| self.add(item.product, item.quantity) }
-      end
+  def move_items_to(other)
+    transaction do
+      items.each { |item| other.add(item.product, item.quantity) }
+      destroy!
     end
 
-    self
+    other
   end
 
   def subtotal
