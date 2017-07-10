@@ -27,10 +27,7 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :users, only: [:index, :show, :edit, :update, :destroy]
     resources :products do
-      member do
-        post 'up'
-        post 'down'
-      end
+      resource 'position', only: [:update], module: :products
     end
   end
 end

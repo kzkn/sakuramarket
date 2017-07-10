@@ -1,6 +1,6 @@
 %h2 商品一覧
 
-%table.table
+%table.table.sortable
   %thead
     %tr
       %th 商品名
@@ -10,18 +10,13 @@
       %th
       %th
       %th
-      %th
-      %th
-
   %tbody
     - @products.each do |product|
-      %tr
+      %tr.item{ data: { model: 'product', url: admin_product_position_path(product) } }
         %td= product.name
         %td= product.price
         %td= product.description
         %td= checkmark(product.hidden).html_safe
-        %td= link_to '↑', up_admin_product_path(product), method: :post
-        %td= link_to '↓', down_admin_product_path(product), method: :post
         %td= link_to '詳細', admin_product_path(product)
         %td= link_to '編集', edit_admin_product_path(product)
         %td= link_to '削除', admin_product_path(product), method: :delete, data: { confirm: '削除しますか？' }

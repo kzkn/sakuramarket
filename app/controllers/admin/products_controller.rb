@@ -1,5 +1,5 @@
 class Admin::ProductsController < ApplicationController
-  before_action :set_product, only: [:show, :edit, :update, :up, :down, :destroy]
+  before_action :set_product, only: [:show, :edit, :update, :destroy]
 
   def index
     @products = Product.without_image
@@ -41,16 +41,6 @@ class Admin::ProductsController < ApplicationController
     end
   end
 
-  def up
-    @product.move_higher
-    redirect_to admin_products_path
-  end
-
-  def down
-    @product.move_lower
-    redirect_to admin_products_path
-  end
-
   def destroy
     @product.destroy
     respond_to do |format|
@@ -60,11 +50,11 @@ class Admin::ProductsController < ApplicationController
   end
 
   private
-    def set_product
-      @product = Product.without_image.find(params[:id])
-    end
+  def set_product
+    @product = Product.without_image.find(params[:id])
+  end
 
-    def product_params
-      params.require(:product).permit(:name, :image_file, :price, :description, :hidden, :position)
-    end
+  def product_params
+    params.require(:product).permit(:name, :image_file, :price, :description, :hidden, :position)
+  end
 end
