@@ -15,4 +15,8 @@ module ApplicationHelper
       end
     end
   end
+
+  def format_datetime(dt)
+    dt.in_time_zone('Asia/Tokyo').iso8601
+  end
 end

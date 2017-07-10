@@ -4,7 +4,7 @@
 
     %p
       %b 注文日時
-      = @order.created_at
+      = format_datetime(@order.created_at)
     %p
       %b 配送日
       = @order.ship_date

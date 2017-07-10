@@ -12,7 +12,7 @@
         - @orders.each_with_index do |order, i|
           %tr
             %td= i + 1
-            %td= link_to(order.created_at, orders_history_path(order))
+            %td= link_to(format_datetime(order.created_at), orders_history_path(order))
             %td= order.ship_date
             %td= order.ship_period
             %td= yen(order.total)
