@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 class CartsController < ApplicationController
   before_action :set_cart
   before_action :set_cart_item, only: [:update]

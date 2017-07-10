@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 class SignupsController < ApplicationController
   def show
     @form = SignupForm.new

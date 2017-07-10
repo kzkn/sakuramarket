@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 
 class Carts::ItemsController < ApplicationController
   before_action :set_cart_item, only: [:destroy]

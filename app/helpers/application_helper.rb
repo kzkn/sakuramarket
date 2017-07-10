@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 module ApplicationHelper
   def checkmark(flag)
     flag ? '&#10003;'.html_safe : ''

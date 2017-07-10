@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 class SessionsController < ApplicationController
   def new
     @form = LoginForm.new

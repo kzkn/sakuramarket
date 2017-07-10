@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 class Cart < ApplicationRecord
   belongs_to :user, optional: true
   has_many :items, class_name: "CartItem", dependent: :destroy

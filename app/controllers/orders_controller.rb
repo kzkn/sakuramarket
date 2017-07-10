@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 class OrdersController < ApplicationController
   before_action :authenticate!
   before_action :set_cart

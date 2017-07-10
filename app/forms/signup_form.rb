@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 class SignupForm
   include ActiveModel::Model
 

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 module ProductsHelper
   def product_image_tag(product, size)
     # TODO もう少し使いやすくする

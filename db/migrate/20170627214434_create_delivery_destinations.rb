@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 class CreateDeliveryDestinations < ActiveRecord::Migration[5.1]
   def change
     create_table :delivery_destinations do |t|
