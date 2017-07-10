@@ -2,60 +2,7 @@
 
 .row
   .col-xs-12
-    %table.table.cartitems
-      %thead
-        %tr
-          %th{ width: '15%' }
-          %th 商品名
-          %th{ width: '10%' } 価格
-          %th{ width: '10%' } 数量
-      %tbody
-        - @order.items.each do |item|
-          %tr
-            %td= image_tag(product_image_path(item.product), class: 'product__image product__image--fixed-width product__image--shadow')
-            %td= item.product.name
-            %td= yen(item.price)
-            %td= item.quantity
-      %tfoot{ style: 'text-align: right' }
-        %tr
-          %td{ colspan: 4 }
-            = labeled_price('小計:', @order.subtotal)
-            = labeled_price('代引き手数料:', @order.cod_fee)
-            = labeled_price('送料:', @order.ship_fee)
-            = labeled_price('消費税:', @order.tax)
-        %tr
-          %td{ colspan: 4 }
-            = labeled_price('合計:', @order.total)
-
-.row
-  .col-xs-12
-    = form_with model: @form, url: orders_path, local: true do |f|
-      - if @form.errors.any?
-        #error_explanation
-          %h2= "#{pluralize(@form.errors.count, "error")} prohibited this user from being saved:"
-          %ul
-            - @form.errors.full_messages.each do |message|
-              %li= message
-
-      .form-group
-        = f.label '送り先名前', for: :ship_to_name
-        = f.text_field :ship_to_name, id: 'ship_to_name', class: 'form-control'
-      .form-group
-        = f.label '送り先住所', for: :ship_to_address
-        = f.text_field :ship_to_address, id: 'ship_to_address', class: 'form-control'
-      .checkbox
-        = f.label :reuse, for: :reuse do
-          = f.check_box :reuse, id: 'reuse', checked: true
-          この送り先情報を次回も使う
-      .form-group
-        = f.label '配送日', for: :ship_date
-        = f.text_field :ship_date, id: 'ship_date', class: 'form-control'
-      .form-group
-        = f.label '配送時間帯', for: :ship_period
-        = f.text_field :ship_period, id: 'ship_period', class: 'form-control'
-
-      .col-xs-offset-4.col-xs-4
-        = f.submit '注文する', class: 'btn btn-block btn-warning'
+    = render 'orders/items', order: @order
 
 %br
 

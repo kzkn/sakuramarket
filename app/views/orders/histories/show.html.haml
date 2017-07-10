@@ -15,28 +15,6 @@
 .row
   .col-xs-12
     %h3 注文商品一覧
+    = render 'orders/items', order: @order
 
-    %table.table
-      %thead
-        %tr
-          %th{ width: '15%' }
-          %th 商品名
-          %th{ width: '10%' } 価格
-          %th{ width: '10%' } 数量
-      %tbody
-        - @order.items.each do |item|
-          %tr
-            %td= image_tag(product_image_path(item.product), class: 'product__image product__image--fixed-width product__image--shadow')
-            %td= item.product.name
-            %td= yen(item.price)
-            %td= item.quantity
-      %tfoot{ style: 'text-align: right' }
-        %tr
-          %td{ colspan: 4 }
-            = labeled_price('小計:', @order.subtotal)
-            = labeled_price('代引き手数料:', @order.cod_fee)
-            = labeled_price('送料:', @order.ship_fee)
-            = labeled_price('消費税:', @order.tax)
-        %tr
-          %td{ colspan: 4 }
-            = labeled_price('合計:', @order.total)
+= link_to '戻る', orders_histories_path
