@@ -6,9 +6,19 @@ class ApplicationController < ActionController::Base
 
   def authenticate!
     unless current_user
-      session[:after_login_path] = request.path
-      redirect_to login_path
+      redirect_to_login
     end
+  end
+
+  def authenticate_admin!
+    unless current_user && current_user.admin?
+      redirect_to_login
+    end
+  end
+
+  def redirect_to_login
+    session[:after_login_path] = request.path
+    redirect_to login_path
   end
 
   def log_in(user)

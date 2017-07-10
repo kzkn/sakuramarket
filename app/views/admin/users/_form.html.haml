@@ -15,5 +15,9 @@
   .form-group
     = f.label '送り先住所', for: :ship_to_address
     = f.text_field :ship_to_address, id: 'ship_to_address', class: 'form-control'
+  .checkbox
+    = f.label :admin, for: :admin do
+      = f.check_box :admin, id: 'admin'
+      サイト管理者
 
   = f.submit '保存', class: 'btn btn-default'

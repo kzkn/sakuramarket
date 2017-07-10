@@ -14,7 +14,7 @@
   = @product.description
 %p
   %b 非表示:
-  = checkmark(@product.hidden).html_safe
+  = checkmark(@product.hidden)
 
 = link_to '編集', edit_admin_product_path(@product)
 \|
