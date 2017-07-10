@@ -26,10 +26,10 @@
           この送り先情報を次回も使う
       .form-group
         = f.label '配送日', for: :ship_date
-        = f.text_field :ship_date, id: 'ship_date', class: 'form-control'
+        = f.select :ship_date, Order.ship_date_candidates, {}, id: 'ship_date', class: 'form-control'
       .form-group
         = f.label '配送時間帯', for: :ship_period
-        = f.text_field :ship_period, id: 'ship_period', class: 'form-control'
+        = f.select :ship_period, Order.ship_period_candidates, {}, id: 'ship_period', class: 'form-control'
 
       .col-xs-offset-4.col-xs-4
         = f.submit '注文する', class: 'btn btn-block btn-warning'

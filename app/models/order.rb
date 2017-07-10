@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class Order < ApplicationRecord
   belongs_to :user
   has_many :items, class_name: 'OrderItem'
@@ -24,6 +25,21 @@ class Order < ApplicationRecord
     end
 
     order
+  end
+
+  def self.ship_period_candidates
+    %w(8-12 12-14 14-16 16-18 18-20 20-21)
+  end
+
+  def self.ship_date_candidates
+    # 3 営業日から 14 営業日先の日付の配列を作る
+    today = Date.today
+    (3..Float::INFINITY).lazy
+      .map{ |i| today + i }
+      .select{ |d| d.business_day? }
+      .take(14)
+      .map{ |d| d.iso8601 }
+      .to_a
   end
 
   def add_cart_items(cart)
@@ -90,5 +106,11 @@ module Ship
     # 6..10  -> 1200
     # ...
     600 * (((quantity - 1) / 5) + 1)
+  end
+end
+
+class Date
+  def business_day?
+    !saturday? && !sunday?
   end
 end
