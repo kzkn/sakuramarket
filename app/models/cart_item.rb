@@ -6,9 +6,10 @@ class CartItem < ApplicationRecord
   validates :quantity, numericality: { only_integer: true, greater_than: 0 }
   validates :price, numericality: { only_integer: true, greater_than: 0 }
   validates :product_id, uniqueness: { scope: :cart_id }
+  validates :name, presence: true
 
   def order
-    OrderItem.new(product: product, quantity: quantity, price: price)
+    OrderItem.new(product: product, name: name, quantity: quantity, price: price)
   end
 
   def subtotal
@@ -18,5 +19,6 @@ class CartItem < ApplicationRecord
   def product=(product)
     super
     self.price = product.price unless self.price
+    self.name = product.name unless self.name
   end
 end

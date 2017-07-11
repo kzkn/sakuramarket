@@ -8,8 +8,8 @@
   %tbody
     - order.items.each do |item|
       %tr
-        %td= image_tag(product_image_path(item.product), class: 'product__image product__image--fixed-width product__image--shadow')
-        %td= item.product.name
+        %td= item.product ? image_tag(product_image_path(item.product), class: 'product__image product__image--fixed-width product__image--shadow') : 'NO IMAGE'
+        %td= item.name
         %td= yen(item.price)
         %td= item.quantity
   %tfoot{ style: 'text-align: right' }

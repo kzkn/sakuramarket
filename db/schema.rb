@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170711212241) do
+ActiveRecord::Schema.define(version: 20170711214704) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 20170711212241) do
     t.integer "price", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string "name", null: false
     t.index ["cart_id", "product_id"], name: "index_cart_items_on_cart_id_and_product_id", unique: true
     t.index ["cart_id"], name: "index_cart_items_on_cart_id"
     t.index ["product_id"], name: "index_cart_items_on_product_id"
@@ -37,13 +38,12 @@ ActiveRecord::Schema.define(version: 20170711212241) do
 
   create_table "order_items", force: :cascade do |t|
     t.bigint "order_id", null: false
-    t.bigint "product_id", null: false
     t.integer "quantity", null: false
     t.integer "price", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "name", null: false
     t.index ["order_id"], name: "index_order_items_on_order_id"
-    t.index ["product_id"], name: "index_order_items_on_product_id"
   end
 
   create_table "orderings", force: :cascade do |t|
@@ -63,6 +63,13 @@ ActiveRecord::Schema.define(version: 20170711212241) do
     t.float "tax_rate", default: 0.08, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "product_orderings", force: :cascade do |t|
+    t.bigint "product_id"
+    t.bigint "order_item_id"
+    t.index ["order_item_id"], name: "index_product_orderings_on_order_item_id"
+    t.index ["product_id"], name: "index_product_orderings_on_product_id"
   end
 
   create_table "products", force: :cascade do |t|
@@ -91,5 +98,6 @@ ActiveRecord::Schema.define(version: 20170711212241) do
   add_foreign_key "cart_items", "products"
   add_foreign_key "carts", "users", on_delete: :cascade
   add_foreign_key "order_items", "orders"
-  add_foreign_key "order_items", "products"
+  add_foreign_key "product_orderings", "order_items"
+  add_foreign_key "product_orderings", "products"
 end

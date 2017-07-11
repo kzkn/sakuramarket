@@ -12,9 +12,9 @@
           %tr
             %td= link_to image_tag(product_image_path(item.product), class: 'product__image product__image--fixed-width product__image--shadow'), detail_path(item.product)
             %td
-              %p= link_to item.product.name, detail_path(item.product)
+              %p= link_to item.name, detail_path(item.product)
               %p= link_to '削除', cart_item_path(item), method: :delete, data: { confirm: 'カートから削除します。よろしいですか？' }, class: 'text--small'
-            %td= yen(item.product.price)
+            %td= yen(item.price)
             %td= item.quantity
       %tfoot
         %tr

@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 class Product < ApplicationRecord
   default_scope ->{ order(:position) }
+  has_many :cart_items, dependent: :destroy
+  has_many :product_orderings, dependent: :destroy
 
   acts_as_list
   scope :for_display, -> { visible.select(:id, :name) }
