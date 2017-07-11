@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class OrderForm
   include ActiveModel::Model
 
@@ -6,8 +7,8 @@ class OrderForm
   attr_accessor :ship_to_name, :ship_to_address, :ship_date, :ship_period, :reuse
   validates :ship_to_name, presence: true
   validates :ship_to_address, presence: true
-  validates :ship_date, presence: true
-  validates :ship_period, presence: true
+  validates :ship_date, inclusion: { in: Order.ship_date_candidates.map(&:iso8601) }
+  validates :ship_period, inclusion: { in: Order.ship_period_candidates }
 
   def self.new_for_user(user)
     OrderForm.new(ship_to_name: user.ship_to_name, ship_to_address: user.ship_to_address)

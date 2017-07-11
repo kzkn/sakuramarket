@@ -1,8 +1,11 @@
+# -*- coding: utf-8 -*-
 class CartItem < ApplicationRecord
   belongs_to :cart, touch: true
   belongs_to :product
 
-  before_create :set_product_price
+  validates :quantity, numericality: { only_integer: true, greater_than: 0 }
+  validates :price, numericality: { only_integer: true, greater_than: 0 }
+  validates :product_id, uniqueness: { scope: :cart_id }
 
   def order
     OrderItem.new(product: product, quantity: quantity, price: price)
@@ -12,10 +15,8 @@ class CartItem < ApplicationRecord
     quantity * price
   end
 
-  private
-  def set_product_price
-    unless self.price
-      self.price = self.product.price
-    end
+  def product=(product)
+    super
+    self.price = product.price unless self.price
   end
 end

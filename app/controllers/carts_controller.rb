@@ -1,13 +1,18 @@
+# -*- coding: utf-8 -*-
 class CartsController < ApplicationController
   before_action :set_cart
-  before_action :set_cart_item, only: [:update]
+  before_action :set_cart_edit_form, :set_product, only: [:update]
 
   def show
   end
 
   def update
-    @cart.add(@item.product, @item.quantity)
-    redirect_to cart_path, notice: '商品をカートに追加しました。'
+    if @form.valid?
+      @cart.add(@product, @form.quantity.to_i)
+      redirect_to cart_path, notice: '商品をカートに追加しました。'
+    else
+      render :show
+    end
   end
 
   private
@@ -15,10 +20,12 @@ class CartsController < ApplicationController
     @cart = ensure_cart_created
   end
 
-  def set_cart_item
-    form = CartEditForm.new(cart_edit_form_params)
-    product = Product.find(form.product_id)
-    @item = CartItem.new(product: product, quantity: form.quantity)
+  def set_cart_edit_form
+    @form = CartEditForm.new(cart_edit_form_params)
+  end
+
+  def set_product
+    @product = Product.visible.without_image.find(@form.product_id)
   end
 
   def cart_edit_form_params
