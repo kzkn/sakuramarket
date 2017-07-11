@@ -15,6 +15,8 @@
           %li= link_to 'お買い物', root_path
           %li= link_to 'ショッピングカート', cart_path
         %ul.pagehead__nav.pagehead__nav--right
+          - if current_user.try(:admin)
+            %li= link_to '管理', admin_path
           - if current_user
             %li= link_to 'ログアウト', logout_path, method: :delete
           - else
