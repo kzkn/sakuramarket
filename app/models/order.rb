@@ -15,17 +15,16 @@ class Order < ApplicationRecord
   before_save :set_ship_fee
 
   def self.pre(cart)
-    Order.new(user: cart.user).tap do |o|
-      o.add_cart_items(cart)
+    cart.user.orders.build.tap do |order|
+      order.add_cart_items(cart)
     end
   end
 
   def self.make(form, cart)
-    order = Order.new(user: cart.user,
-      ship_to_name: form.ship_to_name, ship_to_address: form.ship_to_address,
-      ship_date: form.ship_date, ship_period: form.ship_period).tap do |o|
-      o.add_cart_items(cart)
-    end
+    order = cart.user.orders.build(ship_to_name: form.ship_to_name,
+      ship_to_address: form.ship_to_address, ship_date: form.ship_date,
+      ship_period: form.ship_period)
+    order.add_cart_items(cart)
 
     transaction do
       order.save!
