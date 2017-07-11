@@ -1,34 +1,15 @@
 # -*- coding: utf-8 -*-
 
-class Date
-  def business_day?
-    !saturday? && !sunday?
-  end
-end
-
 class Order < ApplicationRecord
   belongs_to :user
   has_many :items, class_name: 'OrderItem'
 
-  # TODO inlusion から使いやすいように、よそに持っていったほうがいい
-  def self.ship_period_candidates
-    %w(8-12 12-14 14-16 16-18 18-20 20-21)
-  end
-
-  def self.ship_date_candidates
-    # 3 営業日から 14 営業日先の日付の配列を作る
-    today = Date.current
-    (3..Float::INFINITY).lazy
-      .map{ |i| today + i }
-      .select{ |d| d.business_day? }
-      .take(14)
-      .to_a
-  end
+  SHIP_PERIOD_CANDIDATES = %w(8-12 12-14 14-16 16-18 18-20 20-21).freeze.map(&:freeze)
 
   validates :ship_to_name, presence: true
   validates :ship_to_address, presence: true
-  validates :ship_date, inclusion: { in: Order.ship_date_candidates }
-  validates :ship_period, inclusion: { in: Order.ship_period_candidates }
+  validates :ship_date, order_ship_date: true
+  validates :ship_period, inclusion: { in: Order::SHIP_PERIOD_CANDIDATES }
 
   before_save :set_cod_fee
   before_save :set_ship_fee
@@ -52,6 +33,16 @@ class Order < ApplicationRecord
     end
 
     order
+  end
+
+  def self.ship_date_candidates
+    # 3 営業日から 14 営業日先の日付の配列を作る
+    today = Date.current
+    (3..Float::INFINITY).lazy
+      .map{ |i| today + i }
+      .select{ |d| d.business_day? }
+      .take(14)
+      .to_a
   end
 
   def add_cart_items(cart)
@@ -118,5 +109,11 @@ module Ship
     # 6..10  -> 1200
     # ...
     600 * (((quantity - 1) / 5) + 1)
+  end
+end
+
+class Date
+  def business_day?
+    !saturday? && !sunday?
   end
 end
