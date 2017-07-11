@@ -5,7 +5,7 @@
   = @product.name
 %p
   %b 画像:
-  = product_image_tag(@product, 120)
+  = image_tag(product_image_path(@product), class: 'product__image product__image--fixed-width product__image--shadow')
 %p
   %b 価格:
   = @product.price
