@@ -69,6 +69,8 @@ GEM
       execjs
     coffee-script-source (1.12.2)
     concurrent-ruby (1.0.5)
+    email_validator (1.6.0)
+      activemodel
     erubi (1.6.0)
     erubis (2.7.0)
     execjs (2.7.0)
@@ -214,6 +216,7 @@ DEPENDENCIES
   byebug
   capybara (~> 2.13)
   coffee-rails (~> 4.2)
+  email_validator
   haml-rails
   jbuilder (~> 2.5)
   jquery-rails

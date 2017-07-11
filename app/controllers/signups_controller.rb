@@ -5,7 +5,7 @@ class SignupsController < ApplicationController
 
   def create
     @form = SignupForm.new(signup_params)
-    
+
     if @form.create_user
       redirect_to login_path, notice: '登録しました。'
     else

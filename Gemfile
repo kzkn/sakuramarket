@@ -20,6 +20,7 @@ gem 'acts_as_list'
 gem 'bootstrap-sass'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
+gem 'email_validator'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
