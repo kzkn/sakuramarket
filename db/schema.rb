@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170710210929) do
+ActiveRecord::Schema.define(version: 20170711212241) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,8 +46,14 @@ ActiveRecord::Schema.define(version: 20170710210929) do
     t.index ["product_id"], name: "index_order_items_on_product_id"
   end
 
+  create_table "orderings", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "order_id"
+    t.index ["order_id"], name: "index_orderings_on_order_id"
+    t.index ["user_id"], name: "index_orderings_on_user_id"
+  end
+
   create_table "orders", force: :cascade do |t|
-    t.bigint "user_id", null: false
     t.integer "cod_fee", null: false
     t.integer "ship_fee", null: false
     t.string "ship_to_name", null: false
@@ -57,7 +63,6 @@ ActiveRecord::Schema.define(version: 20170710210929) do
     t.float "tax_rate", default: 0.08, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
   create_table "products", force: :cascade do |t|
@@ -87,5 +92,4 @@ ActiveRecord::Schema.define(version: 20170710210929) do
   add_foreign_key "carts", "users", on_delete: :cascade
   add_foreign_key "order_items", "orders"
   add_foreign_key "order_items", "products"
-  add_foreign_key "orders", "users"
 end

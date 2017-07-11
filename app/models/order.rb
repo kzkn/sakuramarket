@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-
 class Order < ApplicationRecord
-  belongs_to :user
+  has_one :ordering, dependent: :destroy
+  has_one :user, through: :ordering
   has_many :items, class_name: 'OrderItem'
 
   SHIP_PERIOD_CANDIDATES = %w(8-12 12-14 14-16 16-18 18-20 20-21).freeze.map(&:freeze)
@@ -60,11 +60,11 @@ class Order < ApplicationRecord
   end
 
   def cod_fee
-    @cod_fee || CashOnDelivery.fee(subtotal)
+    @cod_fee ||= CashOnDelivery.fee(subtotal)
   end
 
   def ship_fee
-    @ship_fee || Ship.fee(total_quantity)
+    @ship_fee ||= Ship.fee(total_quantity)
   end
 
   def total_without_tax
