@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 class Product < ApplicationRecord
   default_scope ->{ order(:position) }
   has_many :cart_items, dependent: :destroy

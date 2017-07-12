@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 class OrderForm
   include ActiveModel::Model
 

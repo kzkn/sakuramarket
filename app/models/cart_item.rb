@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 class CartItem < ApplicationRecord
   belongs_to :cart, touch: true
   belongs_to :product

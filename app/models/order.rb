@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 class Order < ApplicationRecord
   has_one :ordering, dependent: :destroy
   has_one :user, through: :ordering

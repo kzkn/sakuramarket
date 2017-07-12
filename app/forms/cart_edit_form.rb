@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 class CartEditForm
   include ActiveModel::Model
 

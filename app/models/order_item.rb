@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 class OrderItem < ApplicationRecord
   belongs_to :order
   has_one :product_ordering
