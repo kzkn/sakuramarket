@@ -42,17 +42,6 @@ ActiveRecord::Schema.define(version: 20170718122404) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "payments", force: :cascade do |t|
-    t.bigint "order_id"
-    t.float "tax_rate", null: false
-    t.integer "cod_cost", null: false
-    t.integer "ship_cost", null: false
-    t.integer "total", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["order_id"], name: "index_payments_on_order_id"
-  end
-
   create_table "products", force: :cascade do |t|
     t.string "name", null: false
     t.string "image_filename", null: false
@@ -64,22 +53,26 @@ ActiveRecord::Schema.define(version: 20170718122404) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "shipments", force: :cascade do |t|
+  create_table "purchases", force: :cascade do |t|
     t.bigint "order_id"
-    t.string "name", null: false
-    t.string "address", null: false
-    t.date "due_date", null: false
-    t.string "due_time", null: false
+    t.float "tax_rate", null: false
+    t.integer "cod_cost", null: false
+    t.integer "ship_cost", null: false
+    t.integer "total", null: false
+    t.string "ship_name", null: false
+    t.string "ship_address", null: false
+    t.date "ship_due_date", null: false
+    t.string "ship_due_time", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["order_id"], name: "index_shipments_on_order_id"
+    t.index ["order_id"], name: "index_purchases_on_order_id"
   end
 
   create_table "users", force: :cascade do |t|
     t.string "email", null: false
     t.string "password_digest", null: false
-    t.string "shipment_name", default: "", null: false
-    t.string "shipment_address", default: "", null: false
+    t.string "ship_name", default: "", null: false
+    t.string "ship_address", default: "", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -88,6 +81,5 @@ ActiveRecord::Schema.define(version: 20170718122404) do
   add_foreign_key "line_items", "products"
   add_foreign_key "orderings", "orders"
   add_foreign_key "orderings", "users"
-  add_foreign_key "payments", "orders"
-  add_foreign_key "shipments", "orders"
+  add_foreign_key "purchases", "orders"
 end
