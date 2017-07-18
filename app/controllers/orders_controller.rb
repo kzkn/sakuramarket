@@ -5,17 +5,15 @@ class OrdersController < ApplicationController
 
   def new
     @form = OrderForm.new_for_user(current_user)
-    @order = Order.pre(@cart)
   end
 
   def create
     @form = OrderForm.new(order_form_params)
     if @form.valid?
-      Order.make(@form, @cart)
+      @cart.make(@form)
       @form.update_shipping(current_user)
       redirect_to root_path, notice: '注文を受け付けました。ありがとうございました。'
     else
-      @order = Order.pre(@cart)
       render :new
     end
   end

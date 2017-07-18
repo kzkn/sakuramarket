@@ -1,13 +1,12 @@
 Rails.application.routes.draw do
-  root 'home#index'
+  root 'home#index'  # TODO shoppings_controller
+  resources :details, only: [:show]  # TODO shoppings_controller
 
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
 
   resource :signup, only: [:show, :create]
-
-  resources :details, only: [:show]
 
   resources :products, only: [] do
     resource :image, only: [:show], module: :products

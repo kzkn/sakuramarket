@@ -13,6 +13,7 @@ class Admin::ProductsController < ApplicationController
     @product = Product.new
   end
 
+  # TODO UD はそもそもいらなさそう
   def edit
   end
 

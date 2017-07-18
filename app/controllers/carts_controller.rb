@@ -7,9 +7,10 @@ class CartsController < ApplicationController
 
   def update
     if @form.valid?
-      @cart.add(@product, @form.quantity.to_i)
+      @cart.add(@product, @form.quantity.to_i)  # TODO to_i を消したい
       redirect_to cart_path, notice: '商品をカートに追加しました。'
     else
+      # TODO メッセージ
       render :show
     end
   end

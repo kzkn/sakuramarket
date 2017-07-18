@@ -47,12 +47,14 @@ class ApplicationController < ActionController::Base
   end
 
   def current_cart
-    @current_cart ||= Cart.find_by(id: session[:cart_id])
+    @current_cart ||= Order.find_by(id: session[:cart_id])
   end
 
   def ensure_cart_created
     unless current_cart.try(:owner?, current_user)
-      cart = current_user.try(:cart) || current_user.try(:create_cart) || Cart.create
+      cart = current_user&.cart
+      cart = current_user&.orders&.create(cod_fee: 0, ship_fee: 0, ship_to_name: '', ship_to_address: '', ship_date: Date.current, ship_period: '') unless cart  # TODO 仮実装
+      cart = Order.create unless cart
       set_current_cart(cart)
     end
     current_cart
