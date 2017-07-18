@@ -1,7 +1,7 @@
 class Order < ApplicationRecord
   class CheckoutError < StandardError; end
 
-  has_many :items, class_name: 'LineItem'
+  has_many :items, class_name: "LineItem"
   has_one :ordering
   has_one :user, through: :ordering
   has_one :purchase
@@ -35,9 +35,9 @@ class Order < ApplicationRecord
 
   def checkout!(ship)
     transaction do
-      raise CheckoutError.new('cart') unless cart?
-      raise CheckoutError.new('items') unless any_items?
-      raise CheckoutError.new('user') unless user
+      raise CheckoutError.new("cart") unless cart?
+      raise CheckoutError.new("items") unless any_items?
+      raise CheckoutError.new("user") unless user
 
       create_purchase!(ship_due_date: ship.due_date, ship_due_time: ship.due_time)
     end
@@ -45,7 +45,7 @@ class Order < ApplicationRecord
   end
 
   def compute_subtotal
-    items.sum{ |item| item.quantity * item.price }
+    items.pluck("sum(quantity * price)")
   end
 
   def compute_total_quantity
