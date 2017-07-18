@@ -1,7 +1,7 @@
-%h1 Editing admin_product
+%h1 Editing product
 
-= render 'form'
+= render 'form', url: admin_product_path(@product)
 
-= link_to 'Show', @admin_product
+= link_to 'Show', admin_product_path(@product)
 \|
 = link_to 'Back', admin_products_path

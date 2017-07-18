@@ -1,21 +1,18 @@
-%p#notice= notice
+%div= product_image_tag(@product, "large")
 
 %p
   %b Name:
-  = @admin_product.name
-%p
-  %b Image filename:
-  = @admin_product.image_filename
+  = @product.name
 %p
   %b Price:
-  = @admin_product.price
+  = @product.price
 %p
   %b Description:
-  = @admin_product.description
+  = @product.description
 %p
   %b Hidden:
-  = @admin_product.hidden
+  = @product.hidden
 
-= link_to 'Edit', edit_admin_product_path(@admin_product)
+= link_to 'Edit', edit_admin_product_path(@product)
 \|
 = link_to 'Back', admin_products_path

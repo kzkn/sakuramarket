@@ -1,28 +1,25 @@
-%h1 Listing admin_products
+%h1 Listing products
 
+-# TODO sortable
 %table
   %thead
     %tr
+      %th Image
       %th Name
-      %th Image filename
       %th Price
-      %th Description
       %th Hidden
-      %th
       %th
       %th
 
   %tbody
-    - @admin_products.each do |admin_product|
+    - @products.each do |product|
       %tr
-        %td= admin_product.name
-        %td= admin_product.image_filename
-        %td= admin_product.price
-        %td= admin_product.description
-        %td= admin_product.hidden
-        %td= link_to 'Show', admin_product
-        %td= link_to 'Edit', edit_admin_product_path(admin_product)
-        %td= link_to 'Destroy', admin_product, method: :delete, data: { confirm: 'Are you sure?' }
+        %td= product_image_tag(product)
+        %td= product.name
+        %td= product.price
+        %td= checkmark(product.hidden)
+        %td= link_to 'Show', admin_product_path(product)
+        %td= link_to 'Edit', edit_admin_product_path(product)
 
 %br
 

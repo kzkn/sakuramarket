@@ -1,17 +1,17 @@
-= form_for @admin_product do |f|
-  - if @admin_product.errors.any?
+= form_with model: @product, url: url, local: true do |f|
+  - if @product.errors.any?
     #error_explanation
-      %h2= "#{pluralize(@admin_product.errors.count, "error")} prohibited this admin_product from being saved:"
+      %h2= "#{pluralize(@product.errors.count, "error")} prohibited this admin_product from being saved:"
       %ul
-        - @admin_product.errors.full_messages.each do |message|
+        - @product.errors.full_messages.each do |message|
           %li= message
 
   .field
     = f.label :name
     = f.text_field :name
   .field
-    = f.label :image_filename
-    = f.text_field :image_filename
+    = f.label :image_file
+    = f.file_field :image_file
   .field
     = f.label :price
     = f.number_field :price

@@ -1,0 +1,14 @@
+/*
+ *= require_tree .
+ *= require_self
+ */
+
+.product_image {
+    &--small {
+        width: 80px;
+    }
+
+    &--large {
+        width: 280px;
+    }
+}
