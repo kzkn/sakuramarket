@@ -1,13 +1,13 @@
-%h1 Listing products
+%h2 商品一覧
 
 -# TODO sortable
 %table
   %thead
     %tr
-      %th Image
-      %th Name
-      %th Price
-      %th Hidden
+      %th
+      %th 商品名
+      %th 価格
+      %th 非表示
       %th
       %th
 
@@ -18,9 +18,11 @@
         %td= product.name
         %td= product.price
         %td= checkmark(product.hidden)
-        %td= link_to 'Show', admin_product_path(product)
-        %td= link_to 'Edit', edit_admin_product_path(product)
+        %td= link_to '詳細', admin_product_path(product)
+        %td= link_to '編集', edit_admin_product_path(product)
 
 %br
 
-= link_to 'New Product', new_admin_product_path
+= link_to '新規登録', new_admin_product_path
+\|
+= link_to '戻る', admin_path

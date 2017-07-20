@@ -1,18 +1,18 @@
 %div= product_image_tag(@product, "large")
 
 %p
-  %b Name:
+  %b 商品名:
   = @product.name
 %p
-  %b Price:
+  %b 価格:
   = @product.price
 %p
-  %b Description:
+  %b 説明:
   = @product.description
 %p
-  %b Hidden:
-  = @product.hidden
+  %b 非表示:
+  = checkmark(@product.hidden)
 
-= link_to 'Edit', edit_admin_product_path(@product)
+= link_to '編集', edit_admin_product_path(@product)
 \|
-= link_to 'Back', admin_products_path
+= link_to '戻る', admin_products_path

@@ -1,25 +1,25 @@
 = form_with model: @product, url: url, local: true do |f|
   - if @product.errors.any?
     #error_explanation
-      %h2= "#{pluralize(@product.errors.count, "error")} prohibited this admin_product from being saved:"
+      %h2 入力内容にエラーがあります
       %ul
         - @product.errors.full_messages.each do |message|
           %li= message
 
   .field
-    = f.label :name
-    = f.text_field :name
+    = f.label '商品名', for: :name
+    = f.text_field :name, id: :name
   .field
-    = f.label :image_file
-    = f.file_field :image_file
+    = f.label '商品画像', for: :image_file
+    = f.file_field :image_file, id: :image_file
   .field
-    = f.label :price
-    = f.number_field :price
+    = f.label '価格', for: :price
+    = f.number_field :price, id: :price
   .field
-    = f.label :description
-    = f.text_area :description
+    = f.label '説明', for: :description
+    = f.text_area :description, id: :description
   .field
-    = f.label :hidden
-    = f.check_box :hidden
+    = f.label '非表示', for: :hidden
+    = f.check_box :hidden, id: :hidden
   .actions
-    = f.submit 'Save'
+    = f.submit '保存'

@@ -1,9 +1,9 @@
-%h1 Listing users
+%h2 ユーザー一覧
 
 %table
   %thead
     %tr
-      %th Email
+      %th メールアドレス
       %th
       %th
       %th
@@ -12,6 +12,8 @@
     - @users.each do |user|
       %tr
         %td= user.email
-        %td= link_to 'Show', admin_user_path(user)
-        %td= link_to 'Edit', edit_admin_user_path(user)
-        %td= link_to 'Destroy', admin_user_path(user), method: :delete, data: { confirm: 'Are you sure?' }
+        %td= link_to '詳細', admin_user_path(user)
+        %td= link_to '編集', edit_admin_user_path(user)
+        %td= link_to '削除', admin_user_path(user), method: :delete, data: { confirm: '本当に削除しますか？' }
+
+= link_to '戻る', admin_path

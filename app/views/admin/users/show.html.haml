@@ -1,13 +1,13 @@
 %p
-  %b Email:
+  %b メールアドレス:
   = @user.email
 %p
-  %b Ship name:
+  %b 配送先氏名:
   = @user.ship_name
 %p
-  %b Ship address:
+  %b 配送先住所:
   = @user.ship_address
 
-= link_to 'Edit', edit_admin_user_path(@user)
+= link_to '編集', edit_admin_user_path(@user)
 \|
-= link_to 'Back', admin_users_path
+= link_to '戻る', admin_users_path
