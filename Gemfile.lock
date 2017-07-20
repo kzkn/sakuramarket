@@ -41,8 +41,13 @@ GEM
     acts_as_list (0.9.7)
       activerecord (>= 3.0)
     arel (8.0.0)
+    autoprefixer-rails (7.1.1.2)
+      execjs
     bcrypt (3.1.11)
     bindex (0.5.0)
+    bootstrap-sass (3.3.7)
+      autoprefixer-rails (>= 5.2.1)
+      sass (>= 3.3.4)
     builder (3.2.3)
     byebug (9.0.6)
     coffee-rails (4.2.2)
@@ -209,6 +214,7 @@ PLATFORMS
 DEPENDENCIES
   acts_as_list
   bcrypt (~> 3.1.7)
+  bootstrap-sass
   byebug
   coffee-rails (~> 4.2)
   haml-rails

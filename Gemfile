@@ -22,6 +22,7 @@ gem 'haml-rails'
 gem 'acts_as_list'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
+gem 'bootstrap-sass'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

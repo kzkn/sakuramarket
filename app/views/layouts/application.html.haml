@@ -1,0 +1,27 @@
+!!!
+%html
+  %head
+    %meta{ charset: 'utf-8' }
+    %title さくらマーケット
+    = csrf_meta_tags
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+  %body
+    %header.pagehead
+      %nav
+        %span.pagehead__title さくらマーケット
+        %ul.pagehead__nav
+          %li 日記を見る
+          %li= link_to 'お買い物', root_path
+          %li= link_to 'ショッピングカート', '#'
+        %ul.pagehead__nav.pagehead__nav--right
+          - if current_user.try(:admin)
+            %li= link_to '管理', '#'
+          - if current_user
+            %li= link_to 'ログアウト', '#', method: :delete
+          - else
+            %li= link_to 'ログイン', '#'
+    .container
+      - if notice
+        .alert.alert-info= notice
+      = yield
