@@ -1,0 +1,5 @@
+- if product
+  .col-xs-4
+    = link_to product, class: 'thumbnail product' do
+      = product_image_tag(product, "large")
+      %span= product.name

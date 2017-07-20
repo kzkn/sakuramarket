@@ -1,3 +1,5 @@
-%ul
-  - @products.each do |product|
-    %li= link_to product.name, product
+- @products.each_slice(3) do |p1, p2, p3|
+  .row
+    = render 'thumbnail', product: p1
+    = render 'thumbnail', product: p2
+    = render 'thumbnail', product: p3
