@@ -18,26 +18,18 @@ class Admin::ProductsController < ApplicationController
   def create
     @product = Product.new(product_params)
 
-    respond_to do |format|
-      if @product.save
-        format.html { redirect_to admin_product_path(@product), notice: 'Product was successfully created.' }
-        format.json { render :show, status: :created, location: admin_product_path(@product) }
-      else
-        format.html { render :new }
-        format.json { render json: @product.errors, status: :unprocessable_entity }
-      end
+    if @product.save
+      redirect_to admin_product_path(@product), notice: 'Product was successfully created.'
+    else
+      render :new
     end
   end
 
   def update
-    respond_to do |format|
-      if @product.update(product_params)
-        format.html { redirect_to admin_product_path(@product), notice: 'Product was successfully updated.' }
-        format.json { render :show, status: :ok, location: admin_product_path(@product) }
-      else
-        format.html { render :edit }
-        format.json { render json: @product.errors, status: :unprocessable_entity }
-      end
+    if @product.update(product_params)
+      redirect_to admin_product_path(@product), notice: 'Product was successfully updated.'
+    else
+      render :edit
     end
   end
 
