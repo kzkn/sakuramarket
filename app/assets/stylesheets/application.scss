@@ -105,6 +105,10 @@ a:active {
     &--large {
         width: 280px;
     }
+
+    &--full {
+        width: 100%;
+    }
 }
 
 .btn_cart {
