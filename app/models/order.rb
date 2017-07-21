@@ -9,6 +9,13 @@ class Order < ApplicationRecord
   scope :without_cart, -> { joins(:purchase) }
   scope :only_cart, -> { left_outer_joins(:purchase).where(purchases: { id: nil }) }
 
+  def self.ensure_cart_created(current_cart, current_user)
+    return current_cart if current_cart
+    return current_user.cart if current_user&.cart
+    return current_user.orders.create if current_user
+    Order.create
+  end
+
   def cart?
     purchase.nil?
   end
@@ -45,7 +52,7 @@ class Order < ApplicationRecord
   end
 
   def compute_subtotal
-    items.pluck("sum(quantity * price)")
+    items.pluck("sum(quantity * price)")[0] || 0
   end
 
   def compute_total_quantity

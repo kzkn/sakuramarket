@@ -6,10 +6,11 @@ class ProductsController < ApplicationController
   end
 
   def show
+    @form = CartEditForm.new(product: @product, quantity: 1)
   end
 
   private
   def set_product
-    @product = Product.find(params[:id])
+    @product = Product.visible.find(params[:id])
   end
 end
