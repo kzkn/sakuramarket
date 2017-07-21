@@ -1,9 +1,6 @@
 class ApplicationController < ActionController::Base
+  include SessionsHelper
   protect_from_forgery with: :exception
-
-  def current_user
-    nil  # TODO
-  end
 
   def current_cart
     @cart ||= Order.find_by(id: session[:cart_id])

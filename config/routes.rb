@@ -3,6 +3,9 @@ Rails.application.routes.draw do
 
   resources :products, only: %i(index show)
   resource :cart, only: %i(show update)
+  namespace :cart do
+    resources :items, only: %i(destroy)
+  end
 
   get "/admin", to: "admin/home#show"
   namespace :admin do
