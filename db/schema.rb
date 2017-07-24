@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 20170718122404) do
     t.integer "quantity", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["order_id", "product_id"], name: "index_line_items_on_order_id_and_product_id", unique: true
+    t.index ["order_id", "product_id", "price"], name: "index_line_items_on_order_id_and_product_id_and_price", unique: true
     t.index ["order_id"], name: "index_line_items_on_order_id"
     t.index ["product_id"], name: "index_line_items_on_product_id"
   end

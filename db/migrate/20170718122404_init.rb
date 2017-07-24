@@ -37,7 +37,7 @@ class Init < ActiveRecord::Migration[5.1]
       t.timestamps
     end
 
-    add_index :line_items, [:order_id, :product_id], unique: true
+    add_index :line_items, [:order_id, :product_id, :price], unique: true
 
     create_table :purchases do |t|
       t.references :order, foreign_key: true, unique: true

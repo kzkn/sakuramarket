@@ -28,12 +28,8 @@ class Order < ApplicationRecord
     quantity = quantity.to_i
     return unless quantity > 0
 
-    # TODO すでに入ってる product と新しく入ってくる produce の price
-    # が違う場合もあるので、おとなしく別々にしておくのがよさそうもしく
-    # は product/price の組み合わせで unique にしとけばいい
-
     transaction do
-      item = items.find_by(product_id: product.id)
+      item = items.find_by(product_id: product.id, price: product.price)
       if item
         item.quantity += quantity
         item.save
