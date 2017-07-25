@@ -1,7 +1,12 @@
 Rails.application.routes.draw do
   root to: "products#index"
 
+  get "/login", to: "sessions#new"
+  post "/login", to: "sessions#create"
+  delete "/logout", to: "sessions#destroy"
+
   resources :products, only: %i(index show)
+
   resource :cart, only: %i(show update)
   namespace :cart do
     resources :items, only: %i(destroy)

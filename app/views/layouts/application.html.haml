@@ -17,10 +17,10 @@
         %ul.pagehead__nav.pagehead__nav--right
           - if current_user.try(:admin)
             %li= link_to '管理', '#'
-          - if current_user
-            %li= link_to 'ログアウト', '#', method: :delete
+          - if is_signed_in?
+            %li= link_to 'ログアウト', logout_path, method: :delete
           - else
-            %li= link_to 'ログイン', '#'
+            %li= link_to 'ログイン', login_path
     .container
       - if notice
         .alert.alert-info= notice

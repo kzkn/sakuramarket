@@ -1,5 +1,9 @@
 module SessionsHelper
   def current_user
-    nil  # TODO
+    @user ||= User.find_by(id: session[:user_id])
+  end
+
+  def is_signed_in?
+    current_user.present?
   end
 end

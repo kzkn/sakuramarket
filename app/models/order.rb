@@ -1,8 +1,8 @@
 class Order < ApplicationRecord
   class CheckoutError < StandardError; end
 
-  has_many :items, class_name: "LineItem"
-  has_one :ordering
+  has_many :items, class_name: "LineItem", dependent: :destroy
+  has_one :ordering, dependent: :destroy
   has_one :user, through: :ordering
   has_one :purchase
 
@@ -16,6 +16,24 @@ class Order < ApplicationRecord
     Order.create
   end
 
+  def merge_or_assign(user)
+    if user.cart
+      move_items_to(user.cart)
+    else
+      update!(user: user)
+      self
+    end
+  end
+
+  def move_items_to(other)
+    transaction do
+      items.each { |item| other.add_item(item.product, item.quantity, item.price) }
+      destroy!
+    end
+
+    other
+  end
+
   def cart?
     purchase.nil?
   end
@@ -24,17 +42,19 @@ class Order < ApplicationRecord
     items.any?
   end
 
-  def add_item(product, quantity)
+  def add_item(product, quantity, price = nil)
     quantity = quantity.to_i
     return unless quantity > 0
 
+    price ||= product.price
+
     transaction do
-      item = items.find_by(product_id: product.id, price: product.price)
+      item = items.find_by(product_id: product.id, price: price)
       if item
         item.quantity += quantity
         item.save
       else
-        items.create(product: product, quantity: quantity)
+        items.create(product: product, quantity: quantity, price: price)
       end
     end
 
