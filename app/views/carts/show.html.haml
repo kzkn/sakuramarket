@@ -19,10 +19,9 @@
       %tfoot
         %tr
           %td{ colspan: 4, style: 'text-align: right;' }
-            小計:
-            %strong= yen(@cart.compute_subtotal)
+            = labeled_yen("小計:", @cart.compute_subtotal)
 
 - if @cart.any_items?
   .row
     .col-xs-offset-4.col-xs-4
-      = link_to 'レジに進む', '#', class: 'btn btn-block btn-warning'
+      = link_to 'レジに進む', new_orders_path, class: 'btn btn-block btn-warning'

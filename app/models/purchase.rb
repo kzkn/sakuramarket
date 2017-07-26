@@ -52,9 +52,3 @@ class Purchase < ApplicationRecord
     n + (n * tax_rate).to_i
   end
 end
-
-class Date
-  def business_day?
-    !saturday? && !sunday?
-  end
-end

@@ -15,6 +15,8 @@ Rails.application.routes.draw do
     resources :items, only: %i(destroy)
   end
 
+  resource :orders, only: %i(new create)
+
   get "/admin", to: "admin/home#show"
   namespace :admin do
     resources :users, only: %i(index show edit update destroy)

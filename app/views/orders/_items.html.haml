@@ -1,0 +1,23 @@
+%table.table.cartitems
+  %thead
+    %tr
+      %th{ width: '15%' }
+      %th 商品名
+      %th{ width: '10%' } 価格
+      %th{ width: '10%' } 数量
+  %tbody
+    - order.items.each do |item|
+      %tr
+        %td= product_image_tag(item.product)
+        %td= item.product.name
+        %td= yen(item.price)
+        %td= item.quantity
+  %tfoot{ style: 'text-align: right' }
+    %tr
+      %td{ colspan: 4 }
+        %p= labeled_yen('小計:', order.compute_subtotal)
+        %p= labeled_yen('代引き手数料:', order.compute_cod_cost)
+        %p= labeled_yen('送料:', order.compute_ship_cost)
+    %tr
+      %td{ colspan: 4 }
+        = labeled_yen('合計 (税込み):', 500)  # TODO order.total)

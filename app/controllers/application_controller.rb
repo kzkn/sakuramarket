@@ -3,6 +3,17 @@ class ApplicationController < ActionController::Base
 
   include SessionsHelper
 
+  def authenticate!
+    unless current_user
+      redirect_to_login
+    end
+  end
+
+  def redirect_to_login
+    session[:after_login_path] = request.path
+    redirect_to login_path
+  end
+
   def log_in(user)
     session[:user_id] = user.id
     current_cart&.merge_or_assign(user)&.tap do |cart|

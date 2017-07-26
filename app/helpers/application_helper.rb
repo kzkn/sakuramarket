@@ -6,4 +6,8 @@ module ApplicationHelper
   def yen(value)
     "￥#{value}"
   end
+
+  def labeled_yen(label, value)
+    "#{label} <strong>#{yen(value)}</strong>".html_safe
+  end
 end

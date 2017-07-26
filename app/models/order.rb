@@ -61,13 +61,15 @@ class Order < ApplicationRecord
     # TODO rescue StaleObjectError
   end
 
-  def checkout!(ship)
+  def checkout!(purchase)
     transaction do
       raise CheckoutError.new("cart") unless cart?
       raise CheckoutError.new("items") unless any_items?
       raise CheckoutError.new("user") unless user
 
-      create_purchase!(ship_due_date: ship.due_date, ship_due_time: ship.due_time)
+      create_purchase!(
+        ship_name: purchase.ship_name, ship_address: purchase.ship_address,
+        ship_due_date: purchase.ship_due_date, ship_due_time: purchase.ship_due_time)
     end
     # TODO rescue StaleObjectError
   end
