@@ -1,0 +1,24 @@
+.row
+  .col-xs-offset-3.col-xs-6.login-box
+    %h2 ユーザー登録
+    = form_with(model: @form, url: signup_path, local: true) do |f|
+      - if @form.errors.any?
+        #error_explanation
+          %h2 入力内容にエラーがあります
+        %ul
+          - @form.errors.full_messages.each do |message|
+            %li= message
+
+      .form-group
+        = f.label "メールアドレス", for: :email
+        = f.text_field :email, id: 'email', class: 'form-control'
+
+      .form-group
+        = f.label "パスワード", for: :password
+        = f.password_field :password, id: 'password', class: 'form-control'
+
+      .form-group
+        = f.label "パスワード (確認)", for: :password_confirmation
+        = f.password_field :password_confirmation, id: 'password_confirmation', class: 'form-control'
+
+      = f.submit "登録", class: 'btn btn-primary btn-block'
