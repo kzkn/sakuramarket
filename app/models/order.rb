@@ -6,7 +6,7 @@ class Order < ApplicationRecord
   has_one :user, through: :ordering
   has_one :purchase
 
-  scope :without_cart, -> { joins(:purchase) }
+  scope :only_checked, -> { joins(:purchase) }
   scope :only_cart, -> { left_outer_joins(:purchase).where(purchases: { id: nil }) }
 
   def self.ensure_cart_created(current_cart, current_user)

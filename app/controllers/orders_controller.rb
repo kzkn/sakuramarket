@@ -3,6 +3,10 @@ class OrdersController < ApplicationController
   before_action :set_cart, only: %i(new create)
   before_action :require_cart_is_not_empty, only: %i(new create)
 
+  def index
+    @orders = current_user.orders.only_checked.includes(:purchase).order("purchases.created_at desc")
+  end
+
   def new
     @form = PurchaseForm.new_for_user(current_user)
   end

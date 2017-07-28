@@ -1,0 +1,12 @@
+.row
+  .col-xs-12
+    %table.table.cartitems
+      %thead
+        %tr
+          %th 購入日時
+          %th{ width: '10%' } 合計
+      %tbody
+        - @orders.each do |order|
+          %tr
+            %td= link_to order.purchase.created_at, '#'
+            %td= yen(order.purchase.total)
