@@ -1,10 +1,14 @@
 class OrdersController < ApplicationController
   before_action :authenticate!
+  before_action :set_order, only: %i(show)
   before_action :set_cart, only: %i(new create)
   before_action :require_cart_is_not_empty, only: %i(new create)
 
   def index
     @orders = current_user.orders.only_checked.includes(:purchase).order("purchases.created_at desc")
+  end
+
+  def show
   end
 
   def new
@@ -24,6 +28,10 @@ class OrdersController < ApplicationController
   end
 
   private
+  def set_order
+    @order = current_user.orders.find(params[:id])
+  end
+
   def set_cart
     @cart = ensure_cart_created
   end

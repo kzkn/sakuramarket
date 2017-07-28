@@ -8,5 +8,5 @@
       %tbody
         - @orders.each do |order|
           %tr
-            %td= link_to order.purchase.created_at, '#'
+            %td= link_to order.purchase.created_at, order
             %td= yen(order.purchase.total)
