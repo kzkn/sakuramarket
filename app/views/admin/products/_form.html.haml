@@ -6,20 +6,21 @@
         - @product.errors.full_messages.each do |message|
           %li= message
 
-  .field
-    = f.label '商品名', for: :name
-    = f.text_field :name, id: :name
-  .field
-    = f.label '商品画像', for: :image_file
+  .form-group
+    %label{ for: :name } 商品名
+    = f.text_field :name, id: :name, class: 'form-control'
+  .form-group
+    %label{ for: :image_file } 商品画像
     = f.file_field :image_file, id: :image_file
-  .field
-    = f.label '価格', for: :price
-    = f.number_field :price, id: :price
-  .field
-    = f.label '説明', for: :description
-    = f.text_area :description, id: :description
-  .field
-    = f.label '非表示', for: :hidden
-    = f.check_box :hidden, id: :hidden
+  .form-group
+    %label{ for: :price } 価格
+    = f.number_field :price, id: :price, class: 'form-control'
+  .form-group
+    %label{ for: :description } 説明
+    = f.text_area :description, id: :description, class: 'form-control', rows: 3
+  .checkbox
+    = f.label :hidden, for: :hidden do
+      = f.check_box :hidden, id: :hidden
+      非表示
   .actions
-    = f.submit '保存'
+    = f.submit '保存', class: 'btn btn-primary'

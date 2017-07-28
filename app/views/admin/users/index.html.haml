@@ -1,12 +1,12 @@
 %h2 ユーザー一覧
 
-%table
+%table.table
   %thead
     %tr
       %th メールアドレス
-      %th
-      %th
-      %th
+      %th{ width: '10%' }
+      %th{ width: '10%' }
+      %th{ width: '10%' }
 
   %tbody
     - @users.each do |user|
