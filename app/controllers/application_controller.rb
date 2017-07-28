@@ -9,9 +9,13 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def authenticate_admin!
+    return redirect_to_login unless current_user
+    return redirect_to root_path unless current_user.admin
+  end
+
   def redirect_to_login
-    session[:after_login_path] = request.path
-    redirect_to login_path
+    redirect_to login_path(redirect_to: request.path)
   end
 
   def log_in(user)
