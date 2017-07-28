@@ -12,6 +12,7 @@ class OrdersController < ApplicationController
     if @form.valid?
       @cart.checkout!(@form)
       @form.update_shipping(current_user)
+      unset_current_cart
       redirect_to root_path, notice: '注文を受け付けました。ありがとうございました。'
     else
       render :new

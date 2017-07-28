@@ -15,9 +15,9 @@
   %tfoot{ style: 'text-align: right' }
     %tr
       %td{ colspan: 4 }
-        %p= labeled_yen('小計:', order.compute_subtotal)
-        %p= labeled_yen('代引き手数料:', order.compute_cod_cost)
-        %p= labeled_yen('送料:', order.compute_ship_cost)
+        %p= labeled_yen('小計:', order.subtotal)
+        %p= labeled_yen('代引き手数料:', Purchase.cod_cost(order))
+        %p= labeled_yen('送料:', Purchase.ship_cost(order))
     %tr
       %td{ colspan: 4 }
-        = labeled_yen('合計 (税込み):', 500)  # TODO order.total)
+        = labeled_yen('合計 (税込み):', Purchase.total(order))

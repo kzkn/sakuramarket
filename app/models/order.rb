@@ -57,8 +57,6 @@ class Order < ApplicationRecord
         items.create(product: product, quantity: quantity, price: price)
       end
     end
-
-    # TODO rescue StaleObjectError
   end
 
   def checkout!(purchase)
@@ -71,22 +69,13 @@ class Order < ApplicationRecord
         ship_name: purchase.ship_name, ship_address: purchase.ship_address,
         ship_due_date: purchase.ship_due_date, ship_due_time: purchase.ship_due_time)
     end
-    # TODO rescue StaleObjectError
   end
 
-  def compute_subtotal
+  def subtotal
     items.pluck("sum(quantity * price)")[0] || 0
   end
 
-  def compute_total_quantity
+  def total_quantity
     items.sum(&:quantity)
-  end
-
-  def compute_cod_cost
-    Cost::of_cod(compute_subtotal)
-  end
-
-  def compute_ship_cost
-    Cost::of_ship(compute_total_quantity)
   end
 end

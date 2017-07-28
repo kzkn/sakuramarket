@@ -14,6 +14,19 @@ class Purchase < ApplicationRecord
 
   before_validation :ensure_has_values
 
+  def self.cod_cost(order)
+    Cost.of_cod(order.subtotal)
+  end
+
+  def self.ship_cost(order)
+    Cost.of_ship(order.total_quantity)
+  end
+
+  def self.total(order, tax_rate = TAX_RATE)
+    total = order.subtotal + Purchase.cod_cost(order) + Purchase.ship_cost(order)
+    Purchase.taxation(total, tax_rate)
+  end
+
   private
   def ensure_has_values
     ensure_has_tax_rate
@@ -29,15 +42,15 @@ class Purchase < ApplicationRecord
   end
 
   def ensure_has_cod_cost
-    self.cod_cost = order.compute_cod_cost unless cod_cost
+    self.cod_cost = Purchase.cod_cost(order) unless cod_cost
   end
 
   def ensure_has_ship_cost
-    self.ship_cost = order.compute_ship_cost unless ship_cost
+    self.ship_cost = Purchase.ship_cost(order) unless ship_cost
   end
 
   def ensure_has_total
-    self.total = taxation(order.compute_subtotal + cod_cost + ship_cost)
+    self.total = Purchase.total(order, tax_rate) unless total
   end
 
   def ensure_has_ship_name
@@ -48,7 +61,7 @@ class Purchase < ApplicationRecord
     self.ship_address = order.user.ship_address unless ship_address
   end
 
-  def taxation(n)
+  def self.taxation(n, tax_rate)
     n + (n * tax_rate).to_i
   end
 end

@@ -19,7 +19,7 @@
       %tfoot
         %tr
           %td{ colspan: 4, style: 'text-align: right;' }
-            = labeled_yen("小計:", @cart.compute_subtotal)
+            = labeled_yen("小計:", @cart.subtotal)
 
 - if @cart.any_items?
   .row
