@@ -4,9 +4,13 @@
       %thead
         %tr
           %th 購入日時
+          %th 配送日
+          %th 配送時間帯
           %th{ width: '10%' } 合計
       %tbody
         - @orders.each do |order|
           %tr
             %td= link_to order.purchase.created_at, order
+            %td= order.purchase.ship_due_date
+            %td= order.purchase.ship_due_time
             %td= yen(order.purchase.total)

@@ -21,7 +21,8 @@
           %td{ colspan: 4, style: 'text-align: right;' }
             = labeled_yen("小計:", @cart.subtotal)
 
-- if @cart.any_items?
   .row
     .col-xs-offset-4.col-xs-4
-      = link_to 'レジに進む', new_order_path, class: 'btn btn-block btn-warning'
+      - if @cart.any_items?
+        = link_to 'レジに進む', new_order_path, class: 'btn btn-block btn-warning'
+      = link_to '過去の注文履歴を見る', orders_path, class: 'btn btn-block btn-success'

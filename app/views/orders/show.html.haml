@@ -1,3 +1,18 @@
 .row
   .col-xs-12
+    %h3 注文履歴詳細
+
+    %dl
+      %dt 注文日時
+      %dd= @order.purchase.created_at
+      %dt 送り先氏名
+      %dd= @order.purchase.ship_name
+      %dt 送り先住所
+      %dd= @order.purchase.ship_address
+      %dt 配送日
+      %dd= @order.purchase.ship_due_date
+      %dt 配送時間帯
+      %dd= @order.purchase.ship_due_time
+
+    %h4 注文商品一覧
     = render 'orders/items', order: @order
