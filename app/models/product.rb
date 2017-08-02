@@ -50,7 +50,7 @@ class Product < ApplicationRecord
   end
 
   def remove_old_image_file
-    if image_filename_change
+    if saved_change_to_image_filename
       path = image_filepath(image_filename_before_last_save)
       safe_delete(path)
     end
