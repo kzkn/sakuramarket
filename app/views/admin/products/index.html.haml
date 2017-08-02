@@ -1,7 +1,6 @@
 %h2 商品一覧
 
--# TODO sortable
-%table.table
+%table.table.sortable
   %thead
     %tr
       %th{ width: '10%' }
@@ -13,7 +12,7 @@
 
   %tbody
     - @products.each do |product|
-      %tr
+      %tr.item{ data: { model: 'product', url: position_admin_product_path(product) } }
         %td= product_image_tag(product)
         %td= product.name
         %td= product.price

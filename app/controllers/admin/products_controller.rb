@@ -1,6 +1,6 @@
 class Admin::ProductsController < ApplicationController
   before_action :authenticate_admin!
-  before_action :set_product, only: [:show, :edit, :update]
+  before_action :set_product, only: [:show, :edit, :update, :position]
 
   def index
     @products = Product.all.ordered
@@ -34,6 +34,11 @@ class Admin::ProductsController < ApplicationController
     end
   end
 
+  def position
+    @product.update!(position_params)
+    head 200
+  end
+
   private
   def set_product
     @product = Product.find(params[:id])
@@ -41,5 +46,9 @@ class Admin::ProductsController < ApplicationController
 
   def product_params
     params.require(:product).permit(:name, :image_file, :price, :description, :hidden)
+  end
+
+  def position_params
+    params.require(:product).permit(:position)
   end
 end

@@ -20,6 +20,10 @@ Rails.application.routes.draw do
   get "/admin", to: "admin/home#show"
   namespace :admin do
     resources :users, only: %i(index show edit update destroy)
-    resources :products, only: %i(index show new edit create update)
+    resources :products, only: %i(index show new edit create update) do
+      member do
+        put :position
+      end
+    end
   end
 end
