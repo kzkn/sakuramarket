@@ -72,7 +72,7 @@ class Order < ApplicationRecord
   end
 
   def subtotal
-    items.pluck("sum(quantity * price)")[0] || 0
+    items.map{ |item| item.quantity * item.price }.sum
   end
 
   def total_quantity
