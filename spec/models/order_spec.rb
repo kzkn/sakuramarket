@@ -1,13 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe Order, type: :model do
-  let!(:user) { User.create(email: "foo@foo.com", password_digest: "p") }
+  let!(:user) { User.create!(email: "foo@foo.com", password_digest: "p") }
   let!(:product) {
-    Product.create(name: "p1", image_filename: "img", price: 100,
+    Product.create!(name: "p1", image_filename: "img", price: 100,
       description: "p1", hidden: false)
   }
   let!(:product2) {
-    Product.create(name: "p2", image_filename: "img", price: 100,
+    Product.create!(name: "p2", image_filename: "img2", price: 100,
       description: "p2", hidden: false)
   }
   let!(:purchase_form) {
@@ -86,7 +86,7 @@ RSpec.describe Order, type: :model do
         cart.update!(user: user)
         cart.add_item(product, 1)
         cart.checkout!(purchase_form)
-        expect(cart.purchase).to be_truthy
+        expect(cart.purchase).to be_present
       end
 
       it "will fail when no one assigned to the cart" do
@@ -113,6 +113,63 @@ RSpec.describe Order, type: :model do
         cart2.cart?  # purchase を強制的にロードさせる
         cart.checkout!(purchase_form)
         expect { cart2.checkout!(purchase_form) }.to raise_error(Order::CheckoutError)
+      end
+    end
+
+    describe "ensure_cart_created" do
+      let!(:cart) { Order.create }
+
+      it "creates new cart" do
+        cart2 = Order.ensure_cart_created(nil, nil)
+        expect(cart2).not_to eq(cart)
+      end
+
+      it "reuses cart" do
+        cart2 = Order.ensure_cart_created(cart, nil)
+        expect(cart2).to eq(cart)
+      end
+
+      it "uses user cart" do
+        cart.update!(user: user)
+        cart2 = Order.ensure_cart_created(nil, user)
+        expect(cart2).to eq(cart)
+      end
+
+      it "creates new cart when user has no cart" do
+        expect(user.cart).to be_blank
+        cart2 = Order.ensure_cart_created(nil, user)
+        expect(cart2).not_to eq(cart)
+      end
+    end
+
+    describe "merge_or_assign" do
+      let!(:cart) { Order.create }
+
+      it "assigns to user" do
+        expect(user.cart).to be_blank
+        cart.merge_or_assign(user)
+        expect(user.cart).to be_present
+      end
+
+      it "merges 2 carts" do
+        cart.add_item(product, 1)
+        cart2 = user.orders.create
+        cart2.add_item(product, 3)
+        cart2.add_item(product2, 2)
+
+        merged = cart.merge_or_assign(user)
+        expect(Order.find_by(id: cart.id)).to be_blank  # move 元 (= cart) は消える
+        expect(merged).to eq(user.cart)  # move 先 (= user.cart) と一致する
+
+        expect(merged.items.size).to eq(2)
+        merged.items.first.tap do |item|
+          expect(item.product).to eq(product)
+          expect(item.quantity).to eq(4)
+        end
+        merged.items.second.tap do |item|
+          expect(item.product).to eq(product2)
+          expect(item.quantity).to eq(2)
+        end
       end
     end
   end
