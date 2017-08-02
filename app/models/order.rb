@@ -74,7 +74,9 @@ class Order < ApplicationRecord
         ship_due_date: purchase.ship_due_date, ship_due_time: purchase.ship_due_time)
     end
 
-    # TODO StaleObjectError
+  rescue ActiveRecord::StaleObjectError
+    reload
+    checkout!(purchase)
   end
 
   def subtotal
