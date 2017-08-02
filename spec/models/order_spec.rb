@@ -62,7 +62,7 @@ RSpec.describe Order, type: :model do
       end
 
       it "concurrently with checkout" do
-        cart.update!(user: user)
+        user.cart = cart
         cart.add_item(product, 1)
 
         cart2 = Order.find(cart.id)
@@ -77,7 +77,7 @@ RSpec.describe Order, type: :model do
       let!(:cart) { Order.create }
 
       it "will succeed" do
-        cart.update!(user: user)
+        user.cart = cart
         cart.add_item(product, 1)
         cart.checkout!(purchase_form)
         expect(cart.purchase).to be_present
@@ -89,19 +89,19 @@ RSpec.describe Order, type: :model do
       end
 
       it "will fail when no items in the cart" do
-        cart.update!(user: user)
+        user.cart = cart
         expect { cart.checkout!(purchase_form) }.to raise_error(Order::CheckoutError)
       end
 
       it "will fail when checkout twice" do
-        cart.update!(user: user)
+        user.cart = cart
         cart.add_item(product, 1)
         cart.checkout!(purchase_form)
         expect { cart.checkout!(purchase_form) }.to raise_error(Order::CheckoutError)
       end
 
       it "concurrently" do
-        cart.update!(user: user)
+        user.cart = cart
         cart.add_item(product, 1)
         cart2 = Order.find(cart.id)
         cart2.cart?  # purchase を強制的にロードさせる
@@ -124,7 +124,7 @@ RSpec.describe Order, type: :model do
       end
 
       it "uses user cart" do
-        cart.update!(user: user)
+        user.cart = cart
         cart2 = Order.ensure_cart_created(nil, user)
         expect(cart2).to eq(cart)
       end
