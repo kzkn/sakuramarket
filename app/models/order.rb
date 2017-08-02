@@ -57,6 +57,10 @@ class Order < ApplicationRecord
         items.create(product: product, quantity: quantity, price: price)
       end
     end
+
+  rescue ActiveRecord::StaleObjectError
+    reload
+    add_item(product, quantity, price) if cart?
   end
 
   def checkout!(purchase)
@@ -69,6 +73,8 @@ class Order < ApplicationRecord
         ship_name: purchase.ship_name, ship_address: purchase.ship_address,
         ship_due_date: purchase.ship_due_date, ship_due_time: purchase.ship_due_time)
     end
+
+    # TODO StaleObjectError
   end
 
   def subtotal
