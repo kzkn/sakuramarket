@@ -25,6 +25,9 @@ class OrdersController < ApplicationController
     else
       render :new
     end
+
+  rescue Order::CheckoutError
+    redirect_to root_path, alert: '注文を受け付けられませんでした。'
   end
 
   private
@@ -38,7 +41,7 @@ class OrdersController < ApplicationController
 
   def require_cart_is_not_empty
     unless @cart.any_items?
-      redirect_to root_path, notice: 'カートに商品がありません。'
+      redirect_to root_path, alert: 'カートに商品がありません。'
     end
   end
 

@@ -10,7 +10,7 @@ class CartsController < ApplicationController
     if @form.valid? && @cart.add_item(@product, @form.quantity)
       redirect_to cart_path, notice: '商品をカートに追加しました。'
     else
-      redirect_to cart_path, notice: '商品をカートに追加できませんでした。数量、商品を確認してください。'
+      redirect_to cart_path, alert: '商品をカートに追加できませんでした。数量、商品を確認してください。'
     end
   end
 
