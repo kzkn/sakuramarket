@@ -36,4 +36,35 @@ RSpec.describe Product, type: :model do
       expect(File.exist?(path)).to be_falsey
     end
   end
+
+  describe "validation" do
+    let!(:product) { build(:product) }
+
+    it "valid" do
+      expect(product).to be_valid
+    end
+
+    %w(name image_filename price description hidden).each do |field|
+      it "invalid when #{field} is blank" do
+        product.send("#{field}=", nil)
+        expect(product).not_to be_valid
+      end
+    end
+
+    it "invalid when image_filename is not unique" do
+      Product.create(name: "a", image_filename: product.image_filename,
+        price: 1, description: "b", hidden: false)
+      expect(product).not_to be_valid
+    end
+
+    it "invalid when price is not a number" do
+      product.price = "a"
+      expect(product).not_to be_valid
+    end
+
+    it "invalid when price is not a integer" do
+      product.price = 1.1
+      expect(product).not_to be_valid
+    end
+  end
 end
