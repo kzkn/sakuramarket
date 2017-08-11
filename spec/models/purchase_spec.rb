@@ -69,4 +69,36 @@ RSpec.describe Purchase, type: :model do
       expect(Purchase.total(cart)).to eq(5940)
     end
   end
+
+  describe "validation" do
+    let!(:order) do
+      order = user.orders.create
+      order.add_item(product, 1)
+      order
+    end
+    let!(:purchase) {
+      order.build_purchase(
+        ship_name: "a", ship_address: "b",
+        ship_due_date: "2017-8-11", ship_due_time: "8-12"
+      )
+    }
+
+    it "valid" do
+      expect(purchase).to be_valid
+    end
+
+    %w(ship_name ship_address ship_due_date ship_due_time).each do |field|
+      it "invalid when #{field} is blank" do
+        purchase.send("#{field}=", nil)
+        expect(purchase).not_to be_valid
+      end
+    end
+
+    %w(tax_rate cod_cost ship_cost total).each do |field|
+      it "invalid when #{field} is not a number" do
+        purchase.send("#{field}=", "a")
+        expect(purchase).not_to be_valid
+      end
+    end
+  end
 end
