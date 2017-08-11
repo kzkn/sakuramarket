@@ -16,14 +16,23 @@ RSpec.feature "Carts", type: :feature do
     click_button("ログイン")
   end
 
-  # TODO confirm のテストをできるようにする
-  # it "deletes product from cart" do
-  #   visit("/cart")
-  #   page.accept_confirm "カートから削除します。よろしいですか？" do
-  #     click_link("削除")
-  #   end
-  #   expect(page).to have_content("カートから商品を削除しました。")
-  # end
+  describe "delete", js: true do
+    let(:file) { Rack::Test::UploadedFile.new(Rails.root.join("spec/fixtures/test.jpg")) }
+
+    before do
+      p1.update!(image_file: file)
+      put_into_cart(p1)
+    end
+
+    it "deletes product from cart" do
+      visit("/cart")
+      page.accept_confirm "カートから削除します。よろしいですか？" do
+        click_link("削除")
+      end
+      expect(page).to have_content("カートから商品を削除しました。")
+      expect(page).not_to have_content(p1.name)
+    end
+  end
 
   context "logged in" do
     let!(:user) { User.create!(email: "a@a.com", password: "hidebu", password_confirmation: "hidebu") }

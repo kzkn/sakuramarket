@@ -37,5 +37,14 @@ RSpec.feature "AdminUsers", type: :feature do
     expect(page).to have_content("fugafuga")
   end
 
-  # TODO 削除のテスト
+  it "deletes user", js: true do
+    visit("/admin/users")
+    within("table tr:nth-child(2)") do
+      page.accept_confirm do
+        click_link "削除"
+      end
+    end
+
+    expect(page).not_to have_content(user.email)
+  end
 end
