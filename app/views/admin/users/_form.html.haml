@@ -7,13 +7,13 @@
           %li= message
 
   .form-group
-    %label{ for: :email } メールアドレス
+    = f.label 'メールアドレス', for: :email
     = f.text_field :email, id: :email, readonly: true, class: 'form-control'
   .form-group
-    %label{ for: :ship_name } 配送先氏名
+    = f.label '配送先氏名', for: :ship_name
     = f.text_field :ship_name, id: :ship_name, class: 'form-control'
   .form-group
-    %label{ for: :ship_address } 配送先住所
+    = f.label '配送先住所', for: :ship_address
     = f.text_field :ship_address, id: :ship_address, class: 'form-control'
   .actions
     = f.submit '保存', class: 'btn btn-primary'

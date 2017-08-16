@@ -17,6 +17,6 @@
         = form_with model: @form, url: cart_path, local: true, method: :patch do |f|
           = f.hidden_field :product_id
           .form-group.form-inline.quantity_form
-            %label{ for: 'quantity' } 数量:
+            = f.label '数量:', for: 'quantity'
             = f.number_field :quantity, id: 'quantity', class: 'form-control'
           %button.btn.btn-block.btn-warning.btn_cart{ type: 'submit' } カートに入れる

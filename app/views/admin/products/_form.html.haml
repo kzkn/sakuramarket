@@ -7,16 +7,16 @@
           %li= message
 
   .form-group
-    %label{ for: :name } 商品名
+    = f.label '商品名', for: :name
     = f.text_field :name, id: :name, class: 'form-control'
   .form-group
-    %label{ for: :image_file } 商品画像
+    = f.label '商品画像', for: :image_file
     = f.file_field :image_file, id: :image_file
   .form-group
-    %label{ for: :price } 価格
+    = f.label '価格', for: :price
     = f.number_field :price, id: :price, class: 'form-control'
   .form-group
-    %label{ for: :description } 説明
+    = f.label '説明', for: :description
     = f.text_area :description, id: :description, class: 'form-control', rows: 3
   .checkbox
     = f.label :hidden, for: :hidden do
