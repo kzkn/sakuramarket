@@ -26,8 +26,8 @@ class PurchaseForm
     PurchaseForm.new(ship_name: user.ship_name, ship_address: user.ship_address)
   end
 
-  def update_shipping(user)
-    user.update(ship_name: ship_name, ship_address: ship_address)
+  def ship_params
+    { ship_name: ship_name, ship_address: ship_address }
   end
 end
 

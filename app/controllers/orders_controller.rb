@@ -19,7 +19,7 @@ class OrdersController < ApplicationController
     @form = PurchaseForm.new(purchase_form_params)
     if @form.valid?
       @cart.checkout!(@form)
-      @form.update_shipping(current_user)
+      current_user.update!(@form.ship_params)
       unset_current_cart
       redirect_to root_path, notice: '注文を受け付けました。ありがとうございました。'
     else
