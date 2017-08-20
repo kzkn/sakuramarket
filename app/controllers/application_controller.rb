@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
   end
 
   def redirect_to_login
-    redirect_to login_path(redirect_to: request.path)
+    redirect_to login_path(redirect_to: request.url)
   end
 
   def log_in(user)

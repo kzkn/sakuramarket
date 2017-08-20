@@ -27,6 +27,11 @@ class SessionsController < ApplicationController
   end
 
   def set_redirect_to
-    @redirect_to = params[:redirect_to] || root_path
+    @redirect_to = acceptable_location(params[:redirect_to]) || root_path
+  end
+
+  def acceptable_location(location)
+    pattern = %r(\A#{root_url})
+    pattern.match(location) && location
   end
 end
