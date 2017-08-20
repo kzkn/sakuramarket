@@ -12,14 +12,12 @@ class OrdersController < ApplicationController
   end
 
   def new
-    @form = PurchaseForm.new_for_user(current_user)
+    @purchase = Purchase.new_for_user(current_user)
   end
 
   def create
-    @form = PurchaseForm.new(purchase_form_params)
-    if @form.valid?
-      @cart.checkout!(@form)
-      current_user.update!(@form.ship_params)
+    @purchase = @cart.build_purchase(purchase_form_params)
+    if @purchase.valid? && current_user.update(@purchase.ship_params) && @purchase.save
       unset_current_cart
       redirect_to root_path, notice: '注文を受け付けました。ありがとうございました。'
     else
@@ -46,6 +44,6 @@ class OrdersController < ApplicationController
   end
 
   def purchase_form_params
-    params.require(:purchase_form).permit(:ship_name, :ship_address, :ship_due_date, :ship_due_time)
+    params.require(:purchase).permit(:ship_name, :ship_address, :ship_due_date, :ship_due_time)
   end
 end

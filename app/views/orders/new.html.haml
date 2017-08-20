@@ -6,12 +6,12 @@
 
 .row
   .col-xs-12
-    = form_with model: @form, url: orders_path, local: true do |f|
-      - if @form.errors.any?
+    = form_with model: @purchase, url: orders_path, local: true do |f|
+      - if @purchase.errors.any?
         #error_explanation
           %h2 入力内容に誤りがあります。
           %ul
-            - @form.errors.full_messages.each do |message|
+            - @purchase.errors.full_messages.each do |message|
               %li= message
 
       .form-group
@@ -22,10 +22,10 @@
         = f.text_field :ship_address, id: 'ship_address', class: 'form-control'
       .form-group
         = f.label '配送日', for: :ship_due_date
-        = f.select :ship_due_date, PurchaseForm.ship_date_candidates, {}, id: 'ship_due_date', class: 'form-control'
+        = f.select :ship_due_date, Purchase.ship_date_candidates, {}, id: 'ship_due_date', class: 'form-control'
       .form-group
         = f.label '配送時間帯', for: :ship_due_time
-        = f.select :ship_due_time, PurchaseForm.ship_time_candidates, {}, id: 'ship_due_time', class: 'form-control'
+        = f.select :ship_due_time, Purchase.ship_time_candidates, {}, id: 'ship_due_time', class: 'form-control'
 
       .col-xs-offset-4.col-xs-4
         = f.submit '注文する', class: 'btn btn-block btn-warning'

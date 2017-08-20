@@ -14,6 +14,28 @@ class Purchase < ApplicationRecord
 
   before_validation :ensure_has_values
 
+  def self.ship_date_candidates
+    # 3 営業日から 14 営業日
+    today = Date.current
+    (3..Float::INFINITY).lazy
+      .map{ |i| today + i }
+      .select{ |d| d.business_day? }
+      .take(12)
+      .to_a
+  end
+
+  def self.ship_time_candidates
+    %w(8-12 12-14 14-16 16-18 18-20 20-21)
+  end
+
+  def self.new_for_user(user)
+    Purchase.new(ship_name: user.ship_name, ship_address: user.ship_address)
+  end
+
+  def ship_params
+    { ship_name: ship_name, ship_address: ship_address }
+  end
+
   def self.cod_cost(order)
     Cost.of_cod(order.subtotal)
   end
@@ -63,5 +85,11 @@ class Purchase < ApplicationRecord
 
   def self.taxation(n, tax_rate)
     n + (n * tax_rate).to_i
+  end
+end
+
+class Date
+  def business_day?
+    !saturday? && !sunday?
   end
 end

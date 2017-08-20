@@ -63,6 +63,7 @@ class Order < ApplicationRecord
     add_item(product, quantity, price) if cart?
   end
 
+  # TODO 消す
   def checkout!(purchase)
     transaction do
       raise CheckoutError.new("cart") unless cart?

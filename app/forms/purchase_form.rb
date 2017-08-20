@@ -1,3 +1,4 @@
+# TODO 消す
 class PurchaseForm
   include ActiveModel::Model
 
