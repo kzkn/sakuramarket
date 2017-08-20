@@ -1,5 +1,5 @@
 class Admin::HomeController < ApplicationController
-  before_action :authenticate_admin!
+  before_action :authenticate!, :authenticate_admin!
 
   def show
   end

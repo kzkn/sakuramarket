@@ -10,8 +10,9 @@ class ApplicationController < ActionController::Base
   end
 
   def authenticate_admin!
-    return redirect_to_login unless current_user
-    return redirect_to root_path unless current_user.admin
+    unless current_user&.admin
+      redirect_to root_path, alert: '権限がありません。'
+    end
   end
 
   def redirect_to_login
