@@ -10,5 +10,7 @@ $(document).on "turbolinks:load", ->
       $.ajax
         type: 'put'
         url: itemdata.url
-        dataType: 'json'
         data: params
+      .fail ->
+        alert("順序の変更時にエラーが発生しました。")
+        location.reload()
