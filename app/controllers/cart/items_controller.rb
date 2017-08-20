@@ -8,6 +8,7 @@ class Cart::ItemsController < ApplicationController
 
   private
   def set_item
-    @item = LineItem.find(params[:id])
+    cart = ensure_cart_created
+    @item = cart.items.find(params[:id])
   end
 end
