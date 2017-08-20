@@ -14,7 +14,6 @@ class PurchaseForm
       .map{ |i| today + i }
       .select{ |d| d.business_day? }
       .take(12)
-      .map(&:iso8601)
       .to_a
   end
 
