@@ -23,9 +23,6 @@ class OrdersController < ApplicationController
     else
       render :new
     end
-
-  rescue Order::CheckoutError
-    redirect_to root_path, alert: '注文を受け付けられませんでした。'
   end
 
   private
