@@ -63,23 +63,6 @@ class Order < ApplicationRecord
     add_item(product, quantity, price) if cart?
   end
 
-  # TODO 消す
-  def checkout!(purchase)
-    transaction do
-      raise CheckoutError.new("cart") unless cart?
-      raise CheckoutError.new("items") unless any_items?
-      raise CheckoutError.new("user") unless user
-
-      create_purchase!(
-        ship_name: purchase.ship_name, ship_address: purchase.ship_address,
-        ship_due_date: purchase.ship_due_date, ship_due_time: purchase.ship_due_time)
-    end
-
-  rescue ActiveRecord::StaleObjectError
-    reload
-    checkout!(purchase)
-  end
-
   def subtotal
     items.map{ |item| item.quantity * item.price }.sum
   end

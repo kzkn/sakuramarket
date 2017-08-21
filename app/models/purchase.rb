@@ -3,14 +3,17 @@ class Purchase < ApplicationRecord
 
   belongs_to :order, touch: true
 
+  validates :order, presence: true, uniqueness: true
   validates :tax_rate, numericality: true
   validates :cod_cost, numericality: true
   validates :ship_cost, numericality: true
   validates :total, numericality: true
   validates :ship_name, presence: true
   validates :ship_address, presence: true
+  # TODO バリデーションのテストケース
   validates :ship_due_date, presence: true, inclusion: { in: proc { Purchase.ship_date_candidates } }
   validates :ship_due_time, presence: true, inclusion: { in: proc { Purchase.ship_time_candidates } }
+  validate :order_has_item, :order_is_assigned_to_user
 
   before_validation :ensure_has_values
 
@@ -50,6 +53,14 @@ class Purchase < ApplicationRecord
   end
 
   private
+  def order_has_item
+    errors.add(:order, 'カートが空です。') unless order.items.exists?
+  end
+
+  def order_is_assigned_to_user
+    errors.add(:order, 'どのユーザーにも割り当てられていないカートです。') unless order.user.present?
+  end
+
   def ensure_has_values
     ensure_has_tax_rate
     ensure_has_cod_cost

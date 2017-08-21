@@ -4,10 +4,6 @@ RSpec.describe Order, type: :model do
   let!(:user) { create(:user) }
   let!(:product) { create(:product) }
   let!(:product2) { create(:product2) }
-  let!(:purchase_form) {
-    PurchaseForm.new(ship_name: "a", ship_address: "b",
-      ship_due_date: "2017-8-3", ship_due_time: "8-12")
-  }
 
   describe "cart" do
     describe "add_item" do
@@ -59,54 +55,6 @@ RSpec.describe Order, type: :model do
 
         cart.reload
         expect(cart.items.size).to eq(2)
-      end
-
-      it "concurrently with checkout" do
-        user.cart = cart
-        cart.add_item(product, 1)
-
-        cart2 = Order.find(cart.id)
-        cart.checkout!(purchase_form)
-
-        added = cart2.add_item(product2, 2)
-        expect(added).to be_falsey
-      end
-    end
-
-    describe "checkout" do
-      let!(:cart) { Order.create }
-
-      it "will succeed" do
-        user.cart = cart
-        cart.add_item(product, 1)
-        cart.checkout!(purchase_form)
-        expect(cart.purchase).to be_present
-      end
-
-      it "will fail when no one assigned to the cart" do
-        cart.add_item(product, 1)
-        expect { cart.checkout!(purchase_form) }.to raise_error(Order::CheckoutError)
-      end
-
-      it "will fail when no items in the cart" do
-        user.cart = cart
-        expect { cart.checkout!(purchase_form) }.to raise_error(Order::CheckoutError)
-      end
-
-      it "will fail when checkout twice" do
-        user.cart = cart
-        cart.add_item(product, 1)
-        cart.checkout!(purchase_form)
-        expect { cart.checkout!(purchase_form) }.to raise_error(Order::CheckoutError)
-      end
-
-      it "concurrently" do
-        user.cart = cart
-        cart.add_item(product, 1)
-        cart2 = Order.find(cart.id)
-        cart2.cart?  # purchase を強制的にロードさせる
-        cart.checkout!(purchase_form)
-        expect { cart2.checkout!(purchase_form) }.to raise_error(Order::CheckoutError)
       end
     end
 
