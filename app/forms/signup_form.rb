@@ -8,6 +8,11 @@ class SignupForm
   validates :password_confirmation, presence: true
 
   def create_user
-    valid? && User.create(email: email, password: password, password_confirmation: password_confirmation)
+    user = User.new(email: email, password: password, password_confirmation: password_confirmation)
+    if valid? && user.save
+      user
+    else
+      nil
+    end
   end
 end
