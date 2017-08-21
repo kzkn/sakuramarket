@@ -10,7 +10,6 @@ class Purchase < ApplicationRecord
   validates :total, numericality: true
   validates :ship_name, presence: true
   validates :ship_address, presence: true
-  # TODO バリデーションのテストケース
   validates :ship_due_date, presence: true, inclusion: { in: proc { Purchase.ship_date_candidates } }
   validates :ship_due_time, presence: true, inclusion: { in: proc { Purchase.ship_time_candidates } }
   validate :order_has_item, :order_is_assigned_to_user

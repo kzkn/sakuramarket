@@ -1,5 +1,11 @@
 require 'rails_helper'
 
+def next_of_day(day)
+  date = Date.parse(day)
+  delta = Date.current < date ? 0 : 7
+  date + delta
+end
+
 RSpec.describe Purchase, type: :model do
   let!(:user) { create(:user) }
   let!(:product) { create(:product) }
@@ -78,8 +84,8 @@ RSpec.describe Purchase, type: :model do
     end
     let!(:purchase) {
       order.build_purchase(
-        ship_name: "a", ship_address: "b",
-        ship_due_date: "2017-8-11", ship_due_time: "8-12"
+        ship_name: "Taro Sato", ship_address: "Fukuoka",
+        ship_due_date: next_of_day("Monday"), ship_due_time: "8-12"
       )
     }
 
@@ -99,6 +105,29 @@ RSpec.describe Purchase, type: :model do
         purchase.send("#{field}=", "a")
         expect(purchase).not_to be_valid
       end
+    end
+
+    it "invalid when ship_due_date is not in candidates" do
+      candidates = Purchase.ship_date_candidates
+      purchase.ship_due_date = candidates[0] - 1
+      expect(purchase).not_to be_valid
+      purchase.ship_due_date = candidates[-1] + 1
+      expect(purchase).not_to be_valid
+    end
+
+    it "invalid when ship_due_time is not in candidates" do
+      purchase.ship_due_time = "7-8"
+      expect(purchase).not_to be_valid
+    end
+
+    it "invalid when order is empty" do
+      order.items.destroy_all
+      expect(purchase).not_to be_valid
+    end
+
+    it "invalid when order is associated to no one" do
+      order.ordering.destroy
+      expect(purchase).not_to be_valid
     end
   end
 end
