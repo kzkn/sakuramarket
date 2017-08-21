@@ -9,8 +9,8 @@ class Purchase < ApplicationRecord
   validates :total, numericality: true
   validates :ship_name, presence: true
   validates :ship_address, presence: true
-  validates :ship_due_date, presence: true
-  validates :ship_due_time, presence: true
+  validates :ship_due_date, presence: true, inclusion: { in: proc { Purchase.ship_date_candidates } }
+  validates :ship_due_time, presence: true, inclusion: { in: proc { Purchase.ship_time_candidates } }
 
   before_validation :ensure_has_values
 
