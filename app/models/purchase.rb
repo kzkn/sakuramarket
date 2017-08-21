@@ -19,7 +19,7 @@ class Purchase < ApplicationRecord
     today = Date.current
     (3..Float::INFINITY).lazy
       .map{ |i| today + i }
-      .select{ |d| d.business_day? }
+      .select{ |d| !d.saturday? && !d.sunday? }
       .take(12)
       .to_a
   end
@@ -85,11 +85,5 @@ class Purchase < ApplicationRecord
 
   def self.taxation(n, tax_rate)
     n + (n * tax_rate).to_i
-  end
-end
-
-class Date
-  def business_day?
-    !saturday? && !sunday?
   end
 end
