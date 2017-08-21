@@ -31,6 +31,17 @@ a:active {
     }
 }
 
+#error_explanation {
+    color: #f00;
+    h2 {
+        font-size: 18px;
+    }
+    ul {
+        list-style: none;
+        margin-bottom: 18px;
+    }
+}
+
 .pagehead {
     width: 100%;
     padding: 0 40px;

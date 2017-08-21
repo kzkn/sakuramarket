@@ -5,9 +5,9 @@
       - if @form.errors.any?
         #error_explanation
           %h2 入力内容にエラーがあります
-        %ul
-          - @form.errors.full_messages.each do |message|
-            %li= message
+          %ul
+            - @form.errors.full_messages.each do |message|
+              %li= message
 
       .form-group
         = f.label "メールアドレス", for: :email
