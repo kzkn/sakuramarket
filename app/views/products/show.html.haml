@@ -10,7 +10,7 @@
         %p.product__price
           %span 価格:
           %span.product__price_value
-            %strong= yen(@product.price)
+            %strong= number_to_currency(@product.price)
         %p.product__description= @product.description
     .row{ style: 'margin-top: 30px' }
       .col-xs-12

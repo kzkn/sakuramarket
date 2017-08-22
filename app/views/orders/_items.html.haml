@@ -10,7 +10,7 @@
       %tr
         %td= product_image_tag(item.product)
         %td= item.product.name
-        %td= yen(item.price)
+        %td= number_to_currency(item.price)
         %td= item.quantity
   %tfoot{ style: 'text-align: right' }
     %tr

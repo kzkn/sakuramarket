@@ -14,7 +14,7 @@
             %td
               %p= link_to item.product.name, item.product
               %p= link_to '削除', cart_item_path(item), method: :delete, data: { confirm: 'カートから削除します。よろしいですか？' }
-            %td= yen(item.price)
+            %td= number_to_currency(item.price)
             %td= item.quantity
       %tfoot
         %tr
