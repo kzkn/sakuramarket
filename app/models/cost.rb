@@ -7,7 +7,7 @@ module Cost
   end
 
   def self.of_ship(quantity)
-    return 0 unless quantity > 0
+    return 0 if quantity <= 0
     # 1..5  -> 600
     # 6..10 -> 1200
     600 * (((quantity - 1) / 5) + 1)
