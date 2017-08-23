@@ -1,27 +1,27 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
-  helper_method :current_user, :is_signed_in?, :is_admin?
+  helper_method :current_user, :signed_in?, :admin?
 
   def current_user
     @user ||= User.find_by(id: session[:user_id])
   end
 
-  def is_signed_in?
+  def signed_in?
     current_user.present?
   end
 
-  def is_admin?
+  def admin?
     current_user&.admin
   end
 
   def authenticate!
-    unless is_signed_in?
+    unless signed_in?
       redirect_to_login
     end
   end
 
   def authenticate_admin!
-    unless is_admin?
+    unless admin?
       redirect_to root_path, alert: '権限がありません。'
     end
   end
