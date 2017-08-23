@@ -62,24 +62,19 @@ RSpec.describe Order, type: :model do
       let!(:cart) { Order.create }
 
       it "creates new cart" do
-        cart2 = Order.ensure_cart_created(nil, nil)
+        cart2 = Order.ensure_cart_created(nil)
         expect(cart2).not_to eq(cart)
-      end
-
-      it "reuses cart" do
-        cart2 = Order.ensure_cart_created(cart, nil)
-        expect(cart2).to eq(cart)
       end
 
       it "uses user cart" do
         user.cart = cart
-        cart2 = Order.ensure_cart_created(nil, user)
+        cart2 = Order.ensure_cart_created(user)
         expect(cart2).to eq(cart)
       end
 
       it "creates new cart when user has no cart" do
         expect(user.cart).to be_blank
-        cart2 = Order.ensure_cart_created(nil, user)
+        cart2 = Order.ensure_cart_created(user)
         expect(cart2).not_to eq(cart)
       end
     end
