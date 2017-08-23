@@ -35,7 +35,7 @@ class OrdersController < ApplicationController
   end
 
   def require_cart_is_not_empty
-    unless @cart.any_items?
+    unless @cart.items.exists?
       redirect_to root_path, alert: 'カートに商品がありません。'
     end
   end

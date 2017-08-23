@@ -37,10 +37,6 @@ class Order < ApplicationRecord
     purchase.nil?
   end
 
-  def any_items?
-    items.any?
-  end
-
   def add_item(product, quantity, price = nil)
     quantity = quantity.to_i
     return unless quantity > 0
