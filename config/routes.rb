@@ -10,9 +10,8 @@ Rails.application.routes.draw do
 
   resources :products, only: %i(index show)
 
-  resource :cart, only: %i(show update)
-  namespace :cart do
-    resources :items, only: %i(destroy)
+  resource :cart, only: %i(show update) do
+    resources :items, only: %i(destroy), module: :cart
   end
 
   resources :orders, only: %i(index show new create)
