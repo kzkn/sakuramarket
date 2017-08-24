@@ -10,14 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170728133237) do
+ActiveRecord::Schema.define(version: 20170824141532) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "line_items", force: :cascade do |t|
-    t.bigint "order_id"
-    t.bigint "product_id"
+    t.bigint "order_id", null: false
+    t.bigint "product_id", null: false
     t.integer "price", null: false
     t.integer "quantity", null: false
     t.datetime "created_at", null: false
@@ -28,8 +28,8 @@ ActiveRecord::Schema.define(version: 20170728133237) do
   end
 
   create_table "orderings", force: :cascade do |t|
-    t.bigint "user_id"
-    t.bigint "order_id"
+    t.bigint "user_id", null: false
+    t.bigint "order_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["order_id"], name: "index_orderings_on_order_id"
@@ -48,13 +48,13 @@ ActiveRecord::Schema.define(version: 20170728133237) do
     t.integer "price", null: false
     t.text "description", null: false
     t.boolean "hidden", null: false
-    t.integer "position"
+    t.integer "position", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "purchases", force: :cascade do |t|
-    t.bigint "order_id"
+    t.bigint "order_id", null: false
     t.float "tax_rate", null: false
     t.integer "cod_cost", null: false
     t.integer "ship_cost", null: false
