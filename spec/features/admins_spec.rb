@@ -15,7 +15,7 @@ RSpec.feature "Admins", type: :feature do
     do_login(admin)
     visit("/")
     click_link("管理")
-    expect(page).to have_current_path(admin_path)
+    expect(page).to have_current_path(admin_root_path)
   end
 
   it "hides admin link" do
