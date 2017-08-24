@@ -6,4 +6,8 @@ class LineItem < ApplicationRecord
   validates :product, presence: true
   validates :price, numericality: { only_integer: true }
   validates :quantity, numericality: { only_integer: true }
+
+  def subtotal
+    quantity * price
+  end
 end
