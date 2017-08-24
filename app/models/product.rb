@@ -14,8 +14,8 @@ class Product < ApplicationRecord
 
   before_validation :ensure_has_image_filename
   before_save :save_image_file
-  after_update :remove_old_image_file
-  after_destroy :remove_image_file
+  after_commit :remove_old_image_file, on: %i(update)
+  after_commit :remove_image_file, on: %i(destroy)
 
   def image_path(filename = nil)
     "/#{image_relative_path(filename)}"
