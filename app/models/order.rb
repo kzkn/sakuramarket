@@ -47,10 +47,10 @@ class Order < ApplicationRecord
       item = items.find_by(product_id: product.id, price: price)
       if item
         item.quantity += quantity
-        item.save
       else
-        items.create(product: product, quantity: quantity, price: price)
+        item = items.build(product: product, quantity: quantity, price: price)
       end
+      item.save
     end
 
   rescue ActiveRecord::StaleObjectError
