@@ -4,6 +4,8 @@ class LoginForm
   attr_accessor :email, :password
 
   def authenticate
-    User.find_by(email: email)&.authenticate(password)
+    User.find_by(email: email)&.authenticate(password).tap do |user|
+      errors.add(:email) unless user
+    end
   end
 end

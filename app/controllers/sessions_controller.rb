@@ -11,7 +11,6 @@ class SessionsController < ApplicationController
       log_in user
       redirect_to @redirect_to, notice: 'ログインしました。'
     else
-      @failure = true
       render :new
     end
   end
