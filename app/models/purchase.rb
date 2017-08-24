@@ -94,6 +94,6 @@ class Purchase < ApplicationRecord
   end
 
   def self.taxation(n, tax_rate)
-    n + (n * tax_rate).to_i
+    (n + n * tax_rate.to_r).to_i
   end
 end
