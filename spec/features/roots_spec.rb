@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.feature "Roots", type: :feature do
   let!(:p1) { create(:product) }
-  let!(:p2) { create(:product2) }
+  let!(:p2) { create(:product, name: "p2", image_filename: "p2") }
 
   it "list all visible products" do
     visit("/")

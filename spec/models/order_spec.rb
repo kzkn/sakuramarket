@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Order, type: :model do
   let!(:user) { create(:user) }
   let!(:product) { create(:product) }
-  let!(:product2) { create(:product2) }
+  let!(:product2) { create(:product, name: "p2", image_filename: "p2") }
 
   describe "cart" do
     describe "add_item" do

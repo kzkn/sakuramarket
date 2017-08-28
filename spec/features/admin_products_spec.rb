@@ -5,7 +5,7 @@ CHECKMARK = "\u2713"  # = &#10003;
 RSpec.feature "AdminProducts", type: :feature do
   let!(:admin) { User.create!(email: "a@a.com", password: "hidebu", password_confirmation: "hidebu", admin: true) }
   let!(:p1) { create(:product) }
-  let!(:p2) { create(:product2) }
+  let!(:p2) { create(:product, name: "p2", image_filename: "p2") }
 
   def do_login
     visit("/login")

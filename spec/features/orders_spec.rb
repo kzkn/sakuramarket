@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.feature "Orders", type: :feature do
   let!(:user) { User.create!(email: "a@a.com", password: "hidebu", password_confirmation: "hidebu") }
   let!(:p1) { create(:product) }
-  let!(:p2) { create(:product2) }
+  let!(:p2) { create(:product, name: "p2", image_filename: "p2") }
 
   def put_into_cart(product)
     visit(product_path(product))

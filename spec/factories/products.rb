@@ -6,12 +6,4 @@ FactoryGirl.define do
     description "p1"
     hidden false
   end
-
-  factory :product2, class: Product do
-    name "p2"
-    image_filename "img2"
-    price 100
-    description "p2"
-    hidden false
-  end
 end

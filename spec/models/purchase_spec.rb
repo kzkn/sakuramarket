@@ -9,7 +9,7 @@ end
 RSpec.describe Purchase, type: :model do
   let!(:user) { create(:user) }
   let!(:product) { create(:product) }
-  let!(:product2) { create(:product2) }
+  let!(:product2) { create(:product, name: "p2", image_filename: "p2") }
 
   describe "cod_cost" do
     let!(:cart) { user.orders.create }
