@@ -6,7 +6,7 @@ RSpec.feature "Products", type: :feature do
   it "shows product" do
     visit(product_path(p1))
     expect(page).to have_content(p1.name)
-    expect(page).to have_content("￥#{p1.price}")
+    expect(page).to have_content("#{p1.price}円")
     expect(page).to have_content(p1.description)
   end
 
