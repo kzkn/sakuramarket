@@ -10,14 +10,14 @@ RSpec.feature "Orders", type: :feature do
     click_button "カートに入れる"
   end
 
-  describe "purchase" do
+  feature "purchase" do
     before do
       do_login(user)
       put_into_cart(apple)
       put_into_cart(melon)
     end
 
-    it "accepts new order" do
+    scenario "accepts new order" do
       visit new_order_path
       fill_in "送り先氏名", with: "z"
       fill_in "送り先住所", with: "y"
@@ -27,7 +27,7 @@ RSpec.feature "Orders", type: :feature do
     end
   end
 
-  describe "history" do
+  feature "history" do
     def purchase(product)
       put_into_cart(product)
       visit new_order_path
@@ -43,12 +43,12 @@ RSpec.feature "Orders", type: :feature do
       put_into_cart(apple)
     end
 
-    it "lists completed order history" do
+    scenario "lists completed order history" do
       visit orders_path
       expect(page.all("table tr").size).to eq 3  # 2 orders + 1 header
     end
 
-    it "shows order detail" do
+    scenario "shows order detail" do
       order = user.orders.only_checked.first
       visit order_path(order)
       expect(page).to have_content order.purchase.ship_name

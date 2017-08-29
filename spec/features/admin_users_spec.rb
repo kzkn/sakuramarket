@@ -6,12 +6,12 @@ RSpec.feature "AdminUsers", type: :feature do
 
   before { do_login(admin) }
 
-  it "lists all users" do
+  scenario "lists all users" do
     visit admin_users_path
     expect(page.all("table tr").size).to eq 3  # 2 users, 1 header
   end
 
-  it "shows user detail" do
+  scenario "shows user detail" do
     visit admin_user_path(user)
     expect(page).to have_content user.email
     expect(page).to have_content user.ship_name
@@ -19,7 +19,7 @@ RSpec.feature "AdminUsers", type: :feature do
     expect(page).not_to have_content user.password_digest
   end
 
-  it "edits user" do
+  scenario "edits user" do
     visit edit_admin_user_path(user)
     fill_in "配送先氏名", with: "hogehoge"
     fill_in "配送先住所", with: "fugafuga"
@@ -30,7 +30,7 @@ RSpec.feature "AdminUsers", type: :feature do
     expect(page).to have_content "fugafuga"
   end
 
-  it "deletes user", js: true do
+  scenario "deletes user", js: true do
     visit admin_users_path
     within "table tr:nth-child(2)" do
       page.accept_confirm do

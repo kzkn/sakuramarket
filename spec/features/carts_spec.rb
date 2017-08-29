@@ -9,7 +9,7 @@ RSpec.feature "Carts", type: :feature do
     click_button "カートに入れる"
   end
 
-  describe "delete", js: true do
+  feature "delete", js: true do
     let(:file) { Rack::Test::UploadedFile.new(Rails.root.join("spec/fixtures/test.jpg")) }
 
     before do
@@ -17,7 +17,7 @@ RSpec.feature "Carts", type: :feature do
       put_into_cart(apple)
     end
 
-    it "deletes product from cart" do
+    scenario "deletes product from cart" do
       visit cart_path
       page.accept_confirm "カートから削除します。よろしいですか？" do
         click_link "削除"
@@ -32,7 +32,7 @@ RSpec.feature "Carts", type: :feature do
 
     before { do_login(user) }
 
-    it "go to orders history" do
+    scenario "go to orders history" do
       visit cart_path
       click_link "過去の注文履歴を見る"
       expect(page).to have_current_path orders_path
@@ -44,7 +44,7 @@ RSpec.feature "Carts", type: :feature do
         put_into_cart(melon)
       end
 
-      it "go to purchase" do
+      scenario "go to purchase" do
         visit cart_path
         click_link "レジに進む"
         expect(page).to have_current_path new_order_path
@@ -52,7 +52,7 @@ RSpec.feature "Carts", type: :feature do
     end
 
     context "emtpy" do
-      it "does not show purchase link" do
+      scenario "does not show purchase link" do
         visit cart_path
         expect(page).not_to have_link "レジに進む"
       end

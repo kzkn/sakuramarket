@@ -9,12 +9,12 @@ RSpec.feature "AdminProducts", type: :feature do
 
   before { do_login(admin) }
 
-  it "lists all products" do
+  scenario "lists all products" do
     visit admin_products_path
     expect(page.all("table tr").size).to eq 3  # 2 products, 1 header
   end
 
-  it "shows product detail" do
+  scenario "shows product detail" do
     visit admin_product_path(melon)
     expect(page).to have_selector "img[src='#{melon.image_path}']"
     expect(page).to have_content melon.name
@@ -23,7 +23,7 @@ RSpec.feature "AdminProducts", type: :feature do
     expect(page).not_to have_content CHECKMARK
   end
 
-  it "edits product" do
+  scenario "edits product" do
     visit edit_admin_product_path(melon)
     fill_in "商品名", with: "banana"
     fill_in "価格", with: 999
@@ -39,7 +39,7 @@ RSpec.feature "AdminProducts", type: :feature do
     expect(page).to have_content CHECKMARK
   end
 
-  it "creates product" do
+  scenario "creates product" do
     visit new_admin_product_path
     fill_in "商品名", with: "lemon"
     attach_file "商品画像", Rails.root.join("spec/fixtures/test.jpg")
