@@ -78,9 +78,9 @@ RSpec.describe Purchase, type: :model do
 
   describe "validation" do
     let!(:order) do
-      order = user.orders.create
-      order.add_item(apple, 1)
-      order
+      user.orders.create.tap do |order|
+        order.add_item(apple, 1)
+      end
     end
     let!(:purchase) {
       order.build_purchase(
