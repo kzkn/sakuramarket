@@ -12,9 +12,10 @@ class Purchase < ApplicationRecord
   validates :ship_address, presence: true
   validates :ship_due_date, presence: true, inclusion: { in: proc { Purchase.ship_date_candidates } }
   validates :ship_due_time, presence: true, inclusion: { in: proc { Purchase.ship_time_candidates } }
-  validate :order_has_item, :order_is_assigned_to_user
+  validate :order_has_item, :order_is_assigned_to_user, if: :has_order?
 
-  before_validation :ensure_has_values
+  before_validation :set_tax_rate, on: :create
+  before_validation :set_attrs_from_order, on: :create, if: :has_order?
 
   def self.ship_date_candidates
     # 3 営業日から 14 営業日
@@ -53,6 +54,10 @@ class Purchase < ApplicationRecord
   end
 
   private
+  def has_order?
+    order.present?
+  end
+
   def order_has_item
     errors.add(:order, 'カートが空です。') unless order.items.exists?
   end
@@ -61,37 +66,14 @@ class Purchase < ApplicationRecord
     errors.add(:order, 'どのユーザーにも割り当てられていないカートです。') unless order.user.present?
   end
 
-  def ensure_has_values
-    ensure_has_tax_rate
-    ensure_has_cod_cost
-    ensure_has_ship_cost
-    ensure_has_total
-    ensure_has_ship_name
-    ensure_has_ship_address
+  def set_tax_rate
+    self.tax_rate = TAX_RATE
   end
 
-  def ensure_has_tax_rate
-    self.tax_rate = TAX_RATE unless tax_rate
-  end
-
-  def ensure_has_cod_cost
-    self.cod_cost = Purchase.cod_cost(order) unless cod_cost
-  end
-
-  def ensure_has_ship_cost
-    self.ship_cost = Purchase.ship_cost(order) unless ship_cost
-  end
-
-  def ensure_has_total
-    self.total = Purchase.total(order, tax_rate) unless total
-  end
-
-  def ensure_has_ship_name
-    self.ship_name = order.user.ship_name unless ship_name
-  end
-
-  def ensure_has_ship_address
-    self.ship_address = order.user.ship_address unless ship_address
+  def set_attrs_from_order
+    self.cod_cost = Purchase.cod_cost(order)
+    self.ship_cost = Purchase.ship_cost(order)
+    self.total = Purchase.total(order, tax_rate)
   end
 
   def self.taxation(n, tax_rate)

@@ -7,7 +7,7 @@ def next_of_day(day)
 end
 
 RSpec.describe Purchase, type: :model do
-  let!(:user) { create(:user) }
+  let!(:user) { create(:user, ship_name: "Taro Sato", ship_address: "Fukuoka") }
   let!(:product) { create(:product) }
   let!(:product2) { create(:product, name: "p2", image_filename: "p2") }
 
@@ -102,7 +102,7 @@ RSpec.describe Purchase, type: :model do
 
     %w(tax_rate cod_cost ship_cost total).each do |field|
       it "invalid when #{field} is not a number" do
-        purchase.send("#{field}=", "a")
+        purchase.order = nil
         expect(purchase).not_to be_valid
       end
     end
