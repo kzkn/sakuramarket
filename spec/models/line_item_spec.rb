@@ -3,8 +3,8 @@ require 'rails_helper'
 RSpec.describe LineItem, type: :model do
   describe "validation" do
     let!(:order) { Order.create }
-    let!(:product) { create(:product) }
-    let!(:line_item) { LineItem.new(order: order, product: product, price: 1, quantity: 2) }
+    let!(:apple) { create(:product) }
+    let!(:line_item) { LineItem.new(order: order, product: apple, price: 1, quantity: 2) }
 
     it "valid" do
       expect(line_item).to be_valid

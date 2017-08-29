@@ -2,47 +2,47 @@ require 'rails_helper'
 
 RSpec.describe Order, type: :model do
   let!(:user) { create(:user) }
-  let!(:product) { create(:product) }
-  let!(:product2) { create(:product, name: "p2", image_filename: "p2") }
+  let!(:apple) { create(:product) }
+  let!(:melon) { create(:product, name: "melon", image_filename: "melon.jpg") }
 
   describe "cart" do
     describe "add_item" do
       let!(:cart) { Order.create }
 
       it "adds as new line item" do
-        cart.add_item(product, 1)
+        cart.add_item(apple, 1)
         expect(cart.items.size).to eq(1)
         cart.items.first.tap do |item|
-          expect(item.product).to eq(product)
+          expect(item.product).to eq(apple)
           expect(item.quantity).to eq(1)
           expect(item.price).to eq(100)
         end
       end
 
       it "updates already added line item" do
-        cart.add_item(product, 1)
-        cart.add_item(product, 2)
+        cart.add_item(apple, 1)
+        cart.add_item(apple, 2)
         expect(cart.items.size).to eq(1)
         cart.items.first.tap do |item|
-          expect(item.product).to eq(product)
+          expect(item.product).to eq(apple)
           expect(item.quantity).to eq(3)
           expect(item.price).to eq(100)
         end
       end
 
       it "adds as new item if price changed" do
-        cart.add_item(product, 1)
-        product.update(price: 200)
-        cart.add_item(product, 2)
+        cart.add_item(apple, 1)
+        apple.update(price: 200)
+        cart.add_item(apple, 2)
 
         expect(cart.items.size).to eq(2)
         cart.items.first.tap do |item|
-          expect(item.product).to eq(product)
+          expect(item.product).to eq(apple)
           expect(item.quantity).to eq(1)
           expect(item.price).to eq(100)
         end
         cart.items.second.tap do |item|
-          expect(item.product).to eq(product)
+          expect(item.product).to eq(apple)
           expect(item.quantity).to eq(2)
           expect(item.price).to eq(200)
         end
@@ -50,8 +50,8 @@ RSpec.describe Order, type: :model do
 
       it "concurrently" do
         cart2 = Order.find(cart.id)
-        cart.add_item(product, 1)
-        cart2.add_item(product2, 1)
+        cart.add_item(apple, 1)
+        cart2.add_item(melon, 1)
 
         cart.reload
         expect(cart.items.size).to eq(2)
@@ -89,10 +89,10 @@ RSpec.describe Order, type: :model do
       end
 
       it "merges 2 carts" do
-        cart.add_item(product, 1)
+        cart.add_item(apple, 1)
         cart2 = user.orders.create
-        cart2.add_item(product, 3)
-        cart2.add_item(product2, 2)
+        cart2.add_item(apple, 3)
+        cart2.add_item(melon, 2)
 
         merged = cart.merge_or_assign(user)
         expect(Order.find_by(id: cart.id)).to be_blank  # move 元 (= cart) は消える
@@ -100,11 +100,11 @@ RSpec.describe Order, type: :model do
 
         expect(merged.items.size).to eq(2)
         merged.items.first.tap do |item|
-          expect(item.product).to eq(product)
+          expect(item.product).to eq(apple)
           expect(item.quantity).to eq(4)
         end
         merged.items.second.tap do |item|
-          expect(item.product).to eq(product2)
+          expect(item.product).to eq(melon)
           expect(item.quantity).to eq(2)
         end
       end

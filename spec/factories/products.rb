@@ -1,9 +1,9 @@
 FactoryGirl.define do
   factory :product do
-    name "p1"
-    image_filename "img"
+    name "apple"
+    image_filename "apple.jpg"
     price 100
-    description "p1"
+    description "Fresh Apple!"
     hidden false
   end
 end

@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.feature "Orders", type: :feature do
   let!(:user) { User.create!(email: "a@a.com", password: "hidebu", password_confirmation: "hidebu") }
-  let!(:p1) { create(:product) }
-  let!(:p2) { create(:product, name: "p2", image_filename: "p2") }
+  let!(:apple) { create(:product) }
+  let!(:melon) { create(:product, name: "melon", image_filename: "melon.jpg") }
 
   def put_into_cart(product)
     visit(product_path(product))
@@ -13,8 +13,8 @@ RSpec.feature "Orders", type: :feature do
   describe "purchase" do
     before do
       do_login(user)
-      put_into_cart(p1)
-      put_into_cart(p2)
+      put_into_cart(apple)
+      put_into_cart(melon)
     end
 
     it "accepts new order" do
@@ -38,9 +38,9 @@ RSpec.feature "Orders", type: :feature do
 
     before do
       do_login(user)
-      purchase(p1)
-      purchase(p2)
-      put_into_cart(p1)
+      purchase(apple)
+      purchase(melon)
+      put_into_cart(apple)
     end
 
     it "lists completed order history" do

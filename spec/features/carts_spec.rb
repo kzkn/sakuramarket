@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.feature "Carts", type: :feature do
-  let!(:p1) { create(:product) }
-  let!(:p2) { create(:product, name: "p2", image_filename: "p2") }
+  let!(:apple) { create(:product) }
+  let!(:melon) { create(:product, name: "melon", image_filename: "melon.jpg") }
 
   def put_into_cart(product)
     visit(product_path(product))
@@ -13,8 +13,8 @@ RSpec.feature "Carts", type: :feature do
     let(:file) { Rack::Test::UploadedFile.new(Rails.root.join("spec/fixtures/test.jpg")) }
 
     before do
-      p1.update!(image_file: file)
-      put_into_cart(p1)
+      apple.update!(image_file: file)
+      put_into_cart(apple)
     end
 
     it "deletes product from cart" do
@@ -23,7 +23,7 @@ RSpec.feature "Carts", type: :feature do
         click_link("削除")
       end
       expect(page).to have_content("カートから商品を削除しました。")
-      expect(page).not_to have_content(p1.name)
+      expect(page).not_to have_content(apple.name)
     end
   end
 
@@ -40,8 +40,8 @@ RSpec.feature "Carts", type: :feature do
 
     context "not empty" do
       before do
-        put_into_cart(p1)
-        put_into_cart(p2)
+        put_into_cart(apple)
+        put_into_cart(melon)
       end
 
       it "go to purchase" do
