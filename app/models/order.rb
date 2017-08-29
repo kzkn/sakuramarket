@@ -42,20 +42,13 @@ class Order < ApplicationRecord
     return unless quantity > 0
 
     price ||= product.price
-
-    transaction do
-      item = items.find_by(product_id: product.id, price: price)
-      if item
-        item.quantity += quantity
-      else
-        item = items.build(product: product, quantity: quantity, price: price)
-      end
-      item.save
+    item = items.find_by(product_id: product.id, price: price)
+    if item
+      item.quantity += quantity
+    else
+      item = items.build(product: product, quantity: quantity, price: price)
     end
-
-  rescue ActiveRecord::StaleObjectError
-    reload
-    add_item(product, quantity, price) if cart?
+    item.save
   end
 
   def subtotal
