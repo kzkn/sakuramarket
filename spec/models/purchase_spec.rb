@@ -93,18 +93,34 @@ RSpec.describe Purchase, type: :model do
       expect(purchase).to be_valid
     end
 
-    %w(ship_name ship_address ship_due_date ship_due_time).each do |field|
-      it "invalid when #{field} is blank" do
-        purchase.send("#{field}=", nil)
-        expect(purchase).not_to be_valid
-      end
+    it "invalid when ship_name is blank" do
+      purchase.ship_name = nil
+      expect(purchase).not_to be_valid
     end
 
-    %w(tax_rate cod_cost ship_cost total).each do |field|
-      it "invalid when #{field} is not a number" do
-        purchase.order = nil
-        expect(purchase).not_to be_valid
-      end
+    it "invalid when ship_address is blank" do
+      purchase.ship_address = nil
+      expect(purchase).not_to be_valid
+    end
+
+    it "invalid when ship_due_date is blank" do
+      purchase.ship_due_date = nil
+      expect(purchase).not_to be_valid
+    end
+
+    it "invalid when ship_due_time is blank" do
+      purchase.ship_due_time = nil
+      expect(purchase).not_to be_valid
+    end
+
+    it "invalid when order is blank" do
+      purchase.order = nil
+      expect(purchase).not_to be_valid
+    end
+
+    it "invalid when order.user is blank" do
+      purchase.order.user = nil
+      expect(purchase).not_to be_valid
     end
 
     it "invalid when ship_due_date is not in candidates" do
@@ -131,7 +147,7 @@ RSpec.describe Purchase, type: :model do
     end
   end
 
-  describe "ship_due_date" do
+  describe "ship_date_candidates" do
     def stub_now(date)
       allow(Date).to receive_message_chain(:current).and_return Date.parse(date)
     end

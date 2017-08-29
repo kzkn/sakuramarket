@@ -10,15 +10,18 @@ RSpec.describe UserOrder, type: :model do
       expect(user_order).to be_valid
     end
 
-    %w(order user).each do |field|
-      it "invalid when #{field} is blank" do
-        user_order.send("#{field}=", nil)
-        expect(user_order).not_to be_valid
-      end
+    it "invalid when order is blank" do
+      user_order.order = nil
+      expect(user_order).not_to be_valid
+    end
+
+    it "invalid when user is blank" do
+      user_order.user = nil
+      expect(user_order).not_to be_valid
     end
 
     it "invalid when order is not unique" do
-      UserOrder.create(order: order ,user: user)
+      UserOrder.create(order: order, user: create(:user, email: "bar@bar.com"))
       expect(user_order).not_to be_valid
     end
   end

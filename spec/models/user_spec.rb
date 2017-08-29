@@ -8,18 +8,24 @@ RSpec.describe User, type: :model do
       expect(user).to be_valid
     end
 
-    %w(email password_digest).each do |field|
-      it "invalid when #{field} is blank" do
-        user.send("#{field}=", nil)
-        expect(user).not_to be_valid
-      end
+    it "invalid when email is blank" do
+      user.email = nil
+      expect(user).not_to be_valid
     end
 
-    %w(ship_name ship_address).each do |field|
-      it "valid when #{field} is blank" do
-        user.send("#{field}=", nil)
-        expect(user).to be_valid
-      end
+    it "invalid when password_digest is blank" do
+      user.password_digest = nil
+      expect(user).not_to be_valid
+    end
+
+    it "valid when ship_name is blank" do
+      user.ship_name = nil
+      expect(user).to be_valid
+    end
+
+    it "valid when ship_address is blank" do
+      user.ship_address = nil
+      expect(user).to be_valid
     end
 
     it "invalid when email is not unique" do

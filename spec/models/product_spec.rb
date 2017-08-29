@@ -44,11 +44,29 @@ RSpec.describe Product, type: :model do
       expect(product).to be_valid
     end
 
-    %w(name image_filename price description hidden).each do |field|
-      it "invalid when #{field} is blank" do
-        product.send("#{field}=", nil)
-        expect(product).not_to be_valid
-      end
+    it "invalid when name is blank" do
+      product.name = nil
+      expect(product).not_to be_valid
+    end
+
+    it "invalid when image_filename is blank" do
+      product.image_filename = nil
+      expect(product).not_to be_valid
+    end
+
+    it "invalid when price is blank" do
+      product.price = nil
+      expect(product).not_to be_valid
+    end
+
+    it "invalid when description is blank" do
+      product.description = nil
+      expect(product).not_to be_valid
+    end
+
+    it "invalid when hidden is blank" do
+      product.hidden = nil
+      expect(product).not_to be_valid
     end
 
     it "invalid when image_filename is not unique" do
