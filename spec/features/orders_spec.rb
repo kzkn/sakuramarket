@@ -10,16 +10,9 @@ RSpec.feature "Orders", type: :feature do
     click_button("カートに入れる")
   end
 
-  def do_login
-    visit("/login")
-    fill_in("メールアドレス", with: "a@a.com")
-    fill_in("パスワード", with: "hidebu")
-    click_button("ログイン")
-  end
-
   describe "purchase" do
     before do
-      do_login
+      do_login(user)
       put_into_cart(p1)
       put_into_cart(p2)
     end
@@ -44,7 +37,7 @@ RSpec.feature "Orders", type: :feature do
     end
 
     before do
-      do_login
+      do_login(user)
       purchase(p1)
       purchase(p2)
       put_into_cart(p1)

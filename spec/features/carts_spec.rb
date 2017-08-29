@@ -9,13 +9,6 @@ RSpec.feature "Carts", type: :feature do
     click_button("カートに入れる")
   end
 
-  def do_login
-    visit("/login")
-    fill_in("メールアドレス", with: "a@a.com")
-    fill_in("パスワード", with: "hidebu")
-    click_button("ログイン")
-  end
-
   describe "delete", js: true do
     let(:file) { Rack::Test::UploadedFile.new(Rails.root.join("spec/fixtures/test.jpg")) }
 
@@ -37,7 +30,7 @@ RSpec.feature "Carts", type: :feature do
   context "logged in" do
     let!(:user) { User.create!(email: "a@a.com", password: "hidebu", password_confirmation: "hidebu") }
 
-    before { do_login }
+    before { do_login(user) }
 
     it "go to orders history" do
       visit("/cart")

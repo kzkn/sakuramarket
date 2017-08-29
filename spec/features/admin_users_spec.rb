@@ -4,14 +4,7 @@ RSpec.feature "AdminUsers", type: :feature do
   let!(:admin) { User.create!(email: "a@a.com", password: "hidebu", password_confirmation: "hidebu", admin: true) }
   let!(:user) { create(:user) }
 
-  def do_login
-    visit("/login")
-    fill_in("メールアドレス", with: "a@a.com")
-    fill_in("パスワード", with: "hidebu")
-    click_button("ログイン")
-  end
-
-  before { do_login }
+  before { do_login(admin) }
 
   it "lists all users" do
     visit("/admin/users")

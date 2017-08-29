@@ -4,13 +4,6 @@ RSpec.feature "Admins", type: :feature do
   let!(:normal) { User.create!(email: "a@a.com", password: "hidebu", password_confirmation: "hidebu", admin: false) }
   let!(:admin) { User.create!(email: "b@b.com", password: "hidebu", password_confirmation: "hidebu", admin: true) }
 
-  def do_login(user)
-    visit("/login")
-    fill_in("メールアドレス", with: user.email)
-    fill_in("パスワード", with: user.password)
-    click_button("ログイン")
-  end
-
   it "shows admin link" do
     do_login(admin)
     visit("/")

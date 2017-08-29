@@ -7,14 +7,7 @@ RSpec.feature "AdminProducts", type: :feature do
   let!(:p1) { create(:product) }
   let!(:p2) { create(:product, name: "p2", image_filename: "p2") }
 
-  def do_login
-    visit("/login")
-    fill_in("メールアドレス", with: "a@a.com")
-    fill_in("パスワード", with: "hidebu")
-    click_button("ログイン")
-  end
-
-  before { do_login }
+  before { do_login(admin) }
 
   it "lists all products" do
     visit("/admin/products")
