@@ -19,10 +19,11 @@ class Purchase < ApplicationRecord
   def self.ship_date_candidates
     # 3 営業日から 14 営業日
     today = Date.current
-    (3..Float::INFINITY).lazy
+    (1..Float::INFINITY).lazy
       .map{ |i| today + i }
       .select{ |d| !d.saturday? && !d.sunday? }
-      .take(12)
+      .take(14)
+      .drop(2)
       .to_a
   end
 

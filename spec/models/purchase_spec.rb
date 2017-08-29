@@ -130,4 +130,43 @@ RSpec.describe Purchase, type: :model do
       expect(purchase).not_to be_valid
     end
   end
+
+  describe "ship_due_date" do
+    def stub_now(date)
+      allow(Date).to receive_message_chain(:current).and_return Date.parse(date)
+    end
+
+    it "on monday" do
+      stub_now("2017-8-14")
+      dates = Purchase.ship_date_candidates.map(&:to_s)
+      expected = %w(
+        2017/08/17 2017/08/18 2017/08/21 2017/08/22 2017/08/23
+        2017/08/24 2017/08/25 2017/08/28 2017/08/29 2017/08/30
+        2017/08/31 2017/09/01
+      )
+      expect(dates).to eq(expected)
+    end
+
+    it "on friday" do
+      stub_now("2017-8-18")
+      dates = Purchase.ship_date_candidates.map(&:to_s)
+      expected = %w(
+        2017/08/23 2017/08/24 2017/08/25 2017/08/28 2017/08/29
+        2017/08/30 2017/08/31 2017/09/01 2017/09/04 2017/09/05
+        2017/09/06 2017/09/07
+      )
+      expect(dates).to eq(expected)
+    end
+
+    it "on saturday" do
+      stub_now("2017-8-19")
+      dates = Purchase.ship_date_candidates.map(&:to_s)
+      expected = %w(
+        2017/08/23 2017/08/24 2017/08/25 2017/08/28 2017/08/29
+        2017/08/30 2017/08/31 2017/09/01 2017/09/04 2017/09/05
+        2017/09/06 2017/09/07
+      )
+      expect(dates).to eq(expected)
+    end
+  end
 end
