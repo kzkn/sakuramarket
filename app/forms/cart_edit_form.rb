@@ -9,4 +9,8 @@ class CartEditForm
   def product=(product)
     self.product_id = product.id
   end
+
+  def quantity
+    @quantity.to_i
+  end
 end

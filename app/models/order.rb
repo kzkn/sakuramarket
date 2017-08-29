@@ -38,8 +38,7 @@ class Order < ApplicationRecord
   end
 
   def add_item(product, quantity, price = nil)
-    quantity = quantity.to_i
-    return unless quantity > 0
+    return if quantity <= 0
 
     price ||= product.price
     item = items.find_by(product_id: product.id, price: price)
