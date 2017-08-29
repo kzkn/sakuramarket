@@ -19,7 +19,7 @@
       %tfoot
         %tr
           %td{ colspan: 4, style: 'text-align: right;' }
-            = labeled_yen("小計:", @cart.subtotal)
+            = render 'shared/labeled_yen', label: '小計:', amount: @cart.subtotal
 
   .row
     .col-xs-offset-4.col-xs-4
