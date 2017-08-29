@@ -126,7 +126,7 @@ RSpec.describe Purchase, type: :model do
     end
 
     it "invalid when order is associated to no one" do
-      order.ordering.destroy
+      order.user_order.destroy
       expect(purchase).not_to be_valid
     end
   end

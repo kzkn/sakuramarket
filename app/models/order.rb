@@ -2,8 +2,8 @@ class Order < ApplicationRecord
   class CheckoutError < StandardError; end
 
   has_many :items, class_name: "LineItem", dependent: :destroy
-  has_one :ordering, dependent: :destroy
-  has_one :user, through: :ordering
+  has_one :user_order, dependent: :destroy
+  has_one :user, through: :user_order
   has_one :purchase
 
   scope :only_checked, -> { joins(:purchase) }

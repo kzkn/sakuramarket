@@ -1,8 +1,8 @@
 class User < ApplicationRecord
   has_secure_password
 
-  has_many :orderings
-  has_many :orders, through: :orderings
+  has_many :user_orders
+  has_many :orders, through: :user_orders
   has_many :purchases, through: :orders
 
   validates :email, presence: true, uniqueness: true
@@ -14,6 +14,6 @@ class User < ApplicationRecord
 
   def cart=(cart)
     @cart = cart
-    orderings.create!(order: cart) if cart
+    user_orders.create!(order: cart) if cart
   end
 end
