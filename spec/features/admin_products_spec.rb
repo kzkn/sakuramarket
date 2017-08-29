@@ -10,7 +10,7 @@ RSpec.feature "AdminProducts", type: :feature do
   before { do_login(admin) }
 
   it "lists all products" do
-    visit("/admin/products")
+    visit(admin_products_path)
     expect(page.all("table tr").size).to eq(3)  # 2 products, 1 header
   end
 

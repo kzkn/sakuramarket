@@ -18,7 +18,7 @@ RSpec.feature "Orders", type: :feature do
     end
 
     it "accepts new order" do
-      visit("/orders/new")
+      visit(new_order_path)
       fill_in("送り先氏名", with: "z")
       fill_in("送り先住所", with: "y")
       click_button("注文する")
@@ -30,7 +30,7 @@ RSpec.feature "Orders", type: :feature do
   describe "history" do
     def purchase(product)
       put_into_cart(product)
-      visit("/orders/new")
+      visit(new_order_path)
       fill_in("送り先氏名", with: "z")
       fill_in("送り先住所", with: "y")
       click_button("注文する")
@@ -44,7 +44,7 @@ RSpec.feature "Orders", type: :feature do
     end
 
     it "lists completed order history" do
-      visit("/orders")
+      visit(orders_path)
       expect(page.all("table tr").size).to eq(3)  # 2 orders + 1 header
     end
 

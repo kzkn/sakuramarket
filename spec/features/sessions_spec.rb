@@ -12,7 +12,7 @@ RSpec.feature "Sessions", type: :feature do
     end
 
     it "show sign up page" do
-      visit("/login")
+      visit(login_path)
       click_link("新規登録")
       expect(page).to have_current_path(signup_path)
     end

@@ -7,7 +7,7 @@ RSpec.feature "AdminUsers", type: :feature do
   before { do_login(admin) }
 
   it "lists all users" do
-    visit("/admin/users")
+    visit(admin_users_path)
     expect(page.all("table tr").size).to eq(3)  # 2 users, 1 header
   end
 
@@ -31,7 +31,7 @@ RSpec.feature "AdminUsers", type: :feature do
   end
 
   it "deletes user", js: true do
-    visit("/admin/users")
+    visit(admin_users_path)
     within("table tr:nth-child(2)") do
       page.accept_confirm do
         click_link "削除"
