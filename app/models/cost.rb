@@ -1,9 +1,14 @@
 module Cost
   def self.of_cod(amount)
-    return 300 if amount < 10000
-    return 400 if amount < 30000
-    return 600 if amount < 100000
-    return 1000
+    if amount < 10000
+      300
+    elsif amount < 30000
+      400
+    elsif amount < 100000
+      600
+    else
+      1000
+    end
   end
 
   def self.of_ship(quantity)
