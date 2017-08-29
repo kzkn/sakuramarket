@@ -17,14 +17,14 @@ RSpec.describe Purchase, type: :model do
     it "is 300yen when subtotal < 10000" do
       apple.update(price: 9999)
       cart.add_item(apple, 1)
-      expect(Purchase.cod_cost(cart)).to eq(300)
+      expect(Purchase.cod_cost(cart)).to eq 300
     end
 
     [10000, 29999].each do |price|
       it "is 400yen when subtotal = #{price}" do
         apple.update(price: price)
         cart.add_item(apple, 1)
-        expect(Purchase.cod_cost(cart)).to eq(400)
+        expect(Purchase.cod_cost(cart)).to eq 400
       end
     end
 
@@ -32,14 +32,14 @@ RSpec.describe Purchase, type: :model do
       it "is 600yen when subtotal = #{price}" do
         apple.update(price: price)
         cart.add_item(apple, 1)
-        expect(Purchase.cod_cost(cart)).to eq(600)
+        expect(Purchase.cod_cost(cart)).to eq 600
       end
     end
 
     it "is 600yen when 100000 <= subtotal" do
       apple.update(price: 100000)
       cart.add_item(apple, 1)
-      expect(Purchase.cod_cost(cart)).to eq(1000)
+      expect(Purchase.cod_cost(cart)).to eq 1000
     end
   end
 
@@ -49,14 +49,14 @@ RSpec.describe Purchase, type: :model do
     [1, 5].each do |quantity|
       it "is 600yen when quantity = #{quantity}" do
         cart.add_item(apple, quantity)
-        expect(Purchase.ship_cost(cart)).to eq(600)
+        expect(Purchase.ship_cost(cart)).to eq 600
       end
     end
 
     [6, 10].each do |quantity|
       it "is 1200yen when quantity = #{quantity}" do
         cart.add_item(apple, quantity)
-        expect(Purchase.ship_cost(cart)).to eq(1200)
+        expect(Purchase.ship_cost(cart)).to eq 1200
       end
     end
   end
@@ -70,9 +70,9 @@ RSpec.describe Purchase, type: :model do
       cart.add_item(apple, 4)
       cart.add_item(melon, 2)
 
-      expect(cart.subtotal).to eq(4000)
-      expect(cart.total_quantity).to eq(6)
-      expect(Purchase.total(cart)).to eq(5940)
+      expect(cart.subtotal).to eq 4000
+      expect(cart.total_quantity).to eq 6
+      expect(Purchase.total(cart)).to eq 5940
     end
   end
 
@@ -144,7 +144,7 @@ RSpec.describe Purchase, type: :model do
         2017/08/24 2017/08/25 2017/08/28 2017/08/29 2017/08/30
         2017/08/31 2017/09/01
       )
-      expect(dates).to eq(expected)
+      expect(dates).to eq expected
     end
 
     it "on friday" do
@@ -155,7 +155,7 @@ RSpec.describe Purchase, type: :model do
         2017/08/30 2017/08/31 2017/09/01 2017/09/04 2017/09/05
         2017/09/06 2017/09/07
       )
-      expect(dates).to eq(expected)
+      expect(dates).to eq expected
     end
 
     it "on saturday" do
@@ -166,7 +166,7 @@ RSpec.describe Purchase, type: :model do
         2017/08/30 2017/08/31 2017/09/01 2017/09/04 2017/09/05
         2017/09/06 2017/09/07
       )
-      expect(dates).to eq(expected)
+      expect(dates).to eq expected
     end
   end
 end

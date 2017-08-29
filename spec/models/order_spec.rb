@@ -11,22 +11,22 @@ RSpec.describe Order, type: :model do
 
       it "adds as new line item" do
         cart.add_item(apple, 1)
-        expect(cart.items.size).to eq(1)
+        expect(cart.items.size).to eq 1
         cart.items.first.tap do |item|
-          expect(item.product).to eq(apple)
-          expect(item.quantity).to eq(1)
-          expect(item.price).to eq(100)
+          expect(item.product).to eq apple
+          expect(item.quantity).to eq 1
+          expect(item.price).to eq 100
         end
       end
 
       it "updates already added line item" do
         cart.add_item(apple, 1)
         cart.add_item(apple, 2)
-        expect(cart.items.size).to eq(1)
+        expect(cart.items.size).to eq 1
         cart.items.first.tap do |item|
-          expect(item.product).to eq(apple)
-          expect(item.quantity).to eq(3)
-          expect(item.price).to eq(100)
+          expect(item.product).to eq apple
+          expect(item.quantity).to eq 3
+          expect(item.price).to eq 100
         end
       end
 
@@ -35,16 +35,16 @@ RSpec.describe Order, type: :model do
         apple.update(price: 200)
         cart.add_item(apple, 2)
 
-        expect(cart.items.size).to eq(2)
+        expect(cart.items.size).to eq 2
         cart.items.first.tap do |item|
-          expect(item.product).to eq(apple)
-          expect(item.quantity).to eq(1)
-          expect(item.price).to eq(100)
+          expect(item.product).to eq apple
+          expect(item.quantity).to eq 1
+          expect(item.price).to eq 100
         end
         cart.items.second.tap do |item|
-          expect(item.product).to eq(apple)
-          expect(item.quantity).to eq(2)
-          expect(item.price).to eq(200)
+          expect(item.product).to eq apple
+          expect(item.quantity).to eq 2
+          expect(item.price).to eq 200
         end
       end
 
@@ -54,7 +54,7 @@ RSpec.describe Order, type: :model do
         cart2.add_item(melon, 1)
 
         cart.reload
-        expect(cart.items.size).to eq(2)
+        expect(cart.items.size).to eq 2
       end
     end
 
@@ -63,19 +63,19 @@ RSpec.describe Order, type: :model do
 
       it "creates new cart" do
         cart2 = Order.ensure_cart_created(nil)
-        expect(cart2).not_to eq(cart)
+        expect(cart2).not_to eq cart
       end
 
       it "uses user cart" do
         user.cart = cart
         cart2 = Order.ensure_cart_created(user)
-        expect(cart2).to eq(cart)
+        expect(cart2).to eq cart
       end
 
       it "creates new cart when user has no cart" do
         expect(user.cart).to be_blank
         cart2 = Order.ensure_cart_created(user)
-        expect(cart2).not_to eq(cart)
+        expect(cart2).not_to eq cart
       end
     end
 
@@ -96,16 +96,16 @@ RSpec.describe Order, type: :model do
 
         merged = cart.merge_or_assign(user)
         expect(Order.find_by(id: cart.id)).to be_blank  # move 元 (= cart) は消える
-        expect(merged).to eq(user.cart)  # move 先 (= user.cart) と一致する
+        expect(merged).to eq user.cart  # move 先 (= user.cart と一致する
 
-        expect(merged.items.size).to eq(2)
+        expect(merged.items.size).to eq 2
         merged.items.first.tap do |item|
-          expect(item.product).to eq(apple)
-          expect(item.quantity).to eq(4)
+          expect(item.product).to eq apple
+          expect(item.quantity).to eq 4
         end
         merged.items.second.tap do |item|
-          expect(item.product).to eq(melon)
-          expect(item.quantity).to eq(2)
+          expect(item.product).to eq melon
+          expect(item.quantity).to eq 2
         end
       end
     end

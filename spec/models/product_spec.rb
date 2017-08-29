@@ -9,7 +9,7 @@ RSpec.describe Product, type: :model do
       product.image_file = file
       product.save!
 
-      expect(product.image_path).to eq("/upload/product/#{product.image_filename}")
+      expect(product.image_path).to eq "/upload/product/#{product.image_filename}"
       expect(File.exist?(product.image_filepath)).to be_truthy
     end
 
