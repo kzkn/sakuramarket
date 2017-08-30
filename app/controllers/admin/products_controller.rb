@@ -1,5 +1,5 @@
 class Admin::ProductsController < Admin::ApplicationController
-  before_action :set_product, only: [:show, :edit, :update, :position]
+  before_action :set_product, only: %i(show edit update position)
 
   def index
     @products = Product.ordered
