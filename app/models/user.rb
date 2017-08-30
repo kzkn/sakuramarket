@@ -16,4 +16,8 @@ class User < ApplicationRecord
     @cart = cart
     user_orders.create!(order: cart) if cart
   end
+
+  def admin?
+    admin
+  end
 end
