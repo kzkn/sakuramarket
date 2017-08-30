@@ -35,7 +35,9 @@ class Admin::ProductsController < Admin::ApplicationController
 
   def position
     @product.update!(position_params)
-    head 200
+    respond_to do |format|
+      format.json { head :no_content }
+    end
   end
 
   private
