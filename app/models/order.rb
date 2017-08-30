@@ -9,7 +9,7 @@ class Order < ApplicationRecord
   scope :only_checked, -> { joins(:purchase) }
   scope :only_cart, -> { left_outer_joins(:purchase).where(purchases: { id: nil }) }
 
-  def self.ensure_cart_created(current_user)
+  def self.get_or_create_cart_for(current_user)
     return current_user.cart if current_user&.cart
     return current_user.orders.create if current_user
     Order.create

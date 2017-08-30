@@ -57,7 +57,7 @@ class ApplicationController < ActionController::Base
   end
 
   def ensure_cart_created
-    current_cart || Order.ensure_cart_created(current_user).tap do |cart|
+    current_cart || Order.get_or_create_cart_for(current_user).tap do |cart|
       set_current_cart cart
     end
   end
