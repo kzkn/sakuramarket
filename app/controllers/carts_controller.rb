@@ -16,7 +16,7 @@ class CartsController < ApplicationController
 
   private
   def set_cart
-    @cart = ensure_cart_created
+    @cart = set_current_cart_surely
   end
 
   def cart_edit_form_params

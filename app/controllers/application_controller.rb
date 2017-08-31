@@ -56,7 +56,7 @@ class ApplicationController < ActionController::Base
     @cart = nil
   end
 
-  def ensure_cart_created
+  def set_current_cart_surely
     current_cart || Order.get_or_create_cart_for(current_user).tap do |cart|
       set_current_cart cart
     end

@@ -31,7 +31,7 @@ class OrdersController < ApplicationController
   end
 
   def set_cart
-    @cart = ensure_cart_created
+    @cart = set_current_cart_surely
   end
 
   def require_cart_is_not_empty
