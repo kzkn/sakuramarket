@@ -1,11 +1,5 @@
 require 'rails_helper'
 
-def next_of_day(day)
-  date = Date.parse(day)
-  delta = Date.current < date ? 0 : 7
-  date + delta
-end
-
 RSpec.describe Purchase, type: :model do
   let!(:user) { create(:user, ship_name: "Taro Sato", ship_address: "Fukuoka") }
   let!(:apple) { create(:product) }
@@ -83,9 +77,12 @@ RSpec.describe Purchase, type: :model do
       end
     end
     let!(:purchase) {
+      valid_ship_due_date = Purchase.ship_date_candidates[0]
+      valid_ship_due_time = Purchase.ship_time_candidates[0]
       order.build_purchase(
         ship_name: "Taro Sato", ship_address: "Fukuoka",
-        ship_due_date: next_of_day("Monday"), ship_due_time: "8-12"
+        ship_due_date: valid_ship_due_date,
+        ship_due_time: valid_ship_due_time
       )
     }
 
