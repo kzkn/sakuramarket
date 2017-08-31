@@ -16,7 +16,7 @@ class Order < ApplicationRecord
   end
 
   def merge_or_assign(user)
-    if user.cart
+    if user.cart.present?
       move_items_to!(user.cart)
     else
       self.tap { |order| order.update!(user: user) }
@@ -41,7 +41,7 @@ class Order < ApplicationRecord
 
     price ||= product.price
     item = items.find_by(product_id: product.id, price: price)
-    if item
+    if item.present?
       item.quantity += quantity
     else
       item = items.build(product: product, quantity: quantity, price: price)

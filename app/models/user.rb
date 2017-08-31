@@ -14,7 +14,7 @@ class User < ApplicationRecord
 
   def cart=(cart)
     @cart = cart
-    user_orders.create!(order: cart) if cart
+    user_orders.create!(order: cart) if cart.present?
   end
 
   def admin?
