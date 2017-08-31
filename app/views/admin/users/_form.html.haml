@@ -1,5 +1,5 @@
 = form_with model: @user, url: url, local: true do |f|
-  - if @user.errors.any?
+  - if @user.errors.present?
     #error_explanation
       %h2 入力内容にエラーがあります
       %ul
