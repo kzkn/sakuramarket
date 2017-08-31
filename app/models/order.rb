@@ -17,13 +17,13 @@ class Order < ApplicationRecord
 
   def merge_or_assign(user)
     if user.cart
-      move_items_to(user.cart)
+      move_items_to!(user.cart)
     else
       self.tap { |order| order.update!(user: user) }
     end
   end
 
-  def move_items_to(other)
+  def move_items_to!(other)
     transaction do
       items.each { |item| other.add_item(item.product, item.quantity, item.price) }
       destroy!
