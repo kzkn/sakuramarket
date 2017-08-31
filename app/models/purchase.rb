@@ -1,5 +1,6 @@
 class Purchase < ApplicationRecord
   TAX_RATE = 0.08
+  SHIP_TIME_CANDIDATES = %w(8-12 12-14 14-16 16-18 18-20 20-21)
 
   belongs_to :order, touch: true
 
@@ -11,7 +12,7 @@ class Purchase < ApplicationRecord
   validates :ship_name, presence: true
   validates :ship_address, presence: true
   validates :ship_due_date, presence: true, inclusion: { in: proc { Purchase.ship_date_candidates } }
-  validates :ship_due_time, presence: true, inclusion: { in: proc { Purchase.ship_time_candidates } }
+  validates :ship_due_time, presence: true, inclusion: { in: proc { Purchase::SHIP_TIME_CANDIDATES } }
   validate :order_has_item, :order_is_assigned_to_user, if: :has_order?
 
   before_validation :set_tax_rate, on: :create
@@ -26,10 +27,6 @@ class Purchase < ApplicationRecord
       .take(14)
       .drop(2)
       .to_a
-  end
-
-  def self.ship_time_candidates
-    %w(8-12 12-14 14-16 16-18 18-20 20-21)
   end
 
   def self.new_for_user(user)
