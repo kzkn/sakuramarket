@@ -19,8 +19,7 @@ class Order < ApplicationRecord
     if user.cart
       move_items_to(user.cart)
     else
-      update!(user: user)
-      self
+      self.tap { |order| order.update!(user: user) }
     end
   end
 
