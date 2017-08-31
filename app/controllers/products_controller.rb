@@ -6,7 +6,7 @@ class ProductsController < ApplicationController
   end
 
   def show
-    @form = CartEditForm.new(product: @product, quantity: 1)
+    @form = CartEditForm.new(product_id: @product.id, quantity: 1)
   end
 
   private
