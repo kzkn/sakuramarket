@@ -41,12 +41,11 @@ class Product < ApplicationRecord
   end
 
   def save_image_file
-    if image_file
-      path = image_filepath
-      FileUtils.mkdir_p(File.dirname(path))
-      File.open(path, "w+b") do |f|
-        f.write(image_file.read)
-      end
+    return unless image_file
+
+    FileUtils.mkdir_p(File.dirname(image_filepath))
+    File.open(image_filepath, "w+b") do |f|
+      f.write(image_file.read)
     end
   end
 
